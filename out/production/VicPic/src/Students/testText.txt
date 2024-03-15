@@ -1,0 +1,44 @@
+First name:Thomas
+Last name:Green
+Nickname:
+Points:12
+Absents:1
+Answered:5
+Times Picked:7
+Passed:1
+
+First name:Hannah
+Last name:Golden
+Nickname:Han
+Points:7
+Absents:0
+Answered:2
+Times Picked:4
+Passed:2
+
+First name:Henry
+Last name:Morrison
+Nickname:
+Points:9
+Absents:3
+Answered:7
+Times Picked:7
+Passed:0
+
+First name:Not Thomas
+Last name:Not Green
+Nickname:
+Points:12
+Absents:1
+Answered:5
+Times Picked:7
+Passed:1
+
+First name:Molly
+Last name:Hanson
+Nickname:
+Points:15
+Absents:3
+Answered:4
+Times Picked:4
+Passed:3
