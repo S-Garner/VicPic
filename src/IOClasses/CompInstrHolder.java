@@ -4,7 +4,7 @@ import src.Interfaces.Instructions;
 
 import javax.swing.*;
 
-public class CompInstrHolder<T extends JComponent> {
+public class CompInstrHolder<T> {
     private T component;
     private Instructions<T> instructions;
 

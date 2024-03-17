@@ -2,6 +2,7 @@ package src.WriterReader;
 
 import src.Students.Student;
 import src.Students.StudentFunctions.Names;
+import src.UIElements.Colors.CurrentUITheme;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,7 +15,7 @@ public class Input {
         Scanner scanner = new Scanner(new File(fileName));
 
         while (scanner.hasNextLine()) {
-            Names names = new Names(); // Create a new Names object for each student
+            Names names = new Names();
             int points = 0, absences = 0, numPicked = 0, passed = 0, answered = 0;
 
             while (scanner.hasNextLine()) {
@@ -40,7 +41,6 @@ public class Input {
                 } else if (line.startsWith("Passed:") && line.length() > 7) {
                     passed = Integer.parseInt(line.substring(7).trim());
 
-                    // Create a new Student object after parsing all attributes for the current student
                     Student tempStudent = new Student(names, points, absences, numPicked, passed, answered);
                     students.add(tempStudent);
 
@@ -50,5 +50,24 @@ public class Input {
         }
         scanner.close();
         return students;
+    }
+
+    public static CurrentUITheme readUIThemeFile(String filename) throws FileNotFoundException{
+        String foreground = "";
+        String background = "";
+        Scanner scanner = new Scanner(new File(filename));
+
+        while (scanner.hasNextLine()){
+            String line = scanner.nextLine().trim();
+
+            if (line.startsWith("Foreground:")){
+                foreground = line.substring(line.indexOf(":") + 1).trim();
+            }else if (line.startsWith("Background:")){
+                background = line.substring(line.indexOf(":") + 1).trim();
+            }
+        }
+        scanner.close();
+
+        return new CurrentUITheme(foreground, background);
     }
 }

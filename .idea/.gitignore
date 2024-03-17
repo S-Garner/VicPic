@@ -1,3 +1,32 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+# IntelliJ specific
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Maven
+target/
+
+# Gradle
+build/
+
+# Node.js
+node_modules/
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# OS and Editor folders
+.DS_Store
+Thumbs.db
+
+# Other common ignores
+bin/
+tmp/
+out/
+C:/Github/VicPic/out
