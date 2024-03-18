@@ -29,10 +29,7 @@ public class Names {
         this.nickName = nickName;
     }
     public boolean getHasNickName(){
-        boolean hasNickname = false;
-        if (this.nickName != ""){
-            hasNickname = true;
-        }
+        boolean hasNickname = this.nickName != "";
         return hasNickname;
     }
 }

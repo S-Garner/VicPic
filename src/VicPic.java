@@ -1,22 +1,16 @@
 package src;
 
-import src.IOClasses.CompInstrHolder;
-import src.IOClasses.SignalAndStart;
-import src.Interfaces.Instructions;
-import src.Interfaces.Trigger;
-import src.Students.Student;
-import src.Students.StudentFunctions.RandStudentSelector;
-import src.UIElements.Colors.CurrentUITheme;
-import src.UIElements.RoundedButton;
-import src.UIElements.RoundedPanel;
-import src.UIElements.TextCanvas;
-import src.UIElements.TextPane;
-import src.WriterReader.Input;
+import src.IOClasses.*;
+import src.Interfaces.*;
+import src.Students.*;
+import src.UIElements.Colors.*;
+import src.UIElements.Buttons.*;
+import src.UIElements.Panels.*;
+import src.UIElements.*;
+import src.WriterReader.*;
+import src.Students.StudentFunctions.*;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,7 +19,61 @@ import java.util.ArrayList;
 
 public class VicPic {
     public static void main(String[] args) {
-        Student pickedStudent;
+        // Initialize the main frame
+        JFrame frame = new JFrame("Custom UI");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        CurrentUITheme theme = new CurrentUITheme("cream", "charcoal");
+        frame.getContentPane().setBackground(theme.getCurrentBackgroundColor().main());
+        frame.setSize(new Dimension(1080, 720));
+        frame.setPreferredSize(new Dimension(1080, 720));
+        frame.setResizable(false);
+        Container contentFrame = frame.getContentPane();
+        frame.getContentPane().setLayout(new BoxLayout(contentFrame, BoxLayout.Y_AXIS));
+
+        RoundedPanel topPanel = new RoundedPanel(theme);
+        topPanel.setPreferredSize(new Dimension(1050, 200));
+        //RoundedPanel bottomPanel = new RoundedPanel(theme);
+        //bottomPanel.setPreferredSize(new Dimension(1050, 720 - 200));
+
+        //frame.getContentPane().add(topPanel);
+        //frame.getContentPane().add(bottomPanel);
+
+        RoundButton button = new RoundButton("test", theme);
+        topPanel.add(button);
+
+
+
+        Instructions<RoundButton> round = new Instructions<RoundButton>() {
+            @Override
+            public void update(RoundButton component) {
+                theme.setCurrentBackgroundColor("charcoal");
+                theme.setCurrentForegroundColor("cream");
+                frame.repaint();
+            }
+        };
+
+        CompInstrHolder compBut = new CompInstrHolder(button, round);
+        Trigger ann = new SignalAndStart(compBut);
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ann.execute();
+            }
+        });
+
+
+        frame.getContentPane().add(topPanel);
+
+        frame.pack();
+        frame.setVisible(true);
+
+
+
+    }
+}
+
+/*
+            Student pickedStudent;
         ArrayList<Student> students;
         CurrentUITheme theme;
 
@@ -84,6 +132,4 @@ public class VicPic {
         frame.setVisible(true);
 
 
-    }
-}
-
+*/

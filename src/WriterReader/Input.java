@@ -1,8 +1,9 @@
 package src.WriterReader;
 
 import src.Students.Student;
-import src.Students.StudentFunctions.Names;
+//import src.Students.StudentFunctions.Names;
 import src.UIElements.Colors.CurrentUITheme;
+import src.Students.StudentFunctions.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -44,7 +45,7 @@ public class Input {
                     Student tempStudent = new Student(names, points, absences, numPicked, passed, answered);
                     students.add(tempStudent);
 
-                    break; // exit the loop after processing one student
+                    break;
                 }
             }
         }

@@ -1,7 +1,6 @@
 package src.Students;
 
-import src.Students.StudentFunctions.Influence;
-import src.Students.StudentFunctions.Names;
+import src.Students.StudentFunctions.*;
 
 public class Student {
     private int points;

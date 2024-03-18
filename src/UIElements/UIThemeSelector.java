@@ -4,8 +4,8 @@ import src.UIElements.Colors.CurrentUITheme;
 
 public class UIThemeSelector {
 
-    private CurrentUITheme currentUITheme;
-    private UISelection uiSelection;
+    private final CurrentUITheme currentUITheme;
+    private final UISelection uiSelection;
 
     public UIThemeSelector(CurrentUITheme currentUITheme, UISelection uiSelection) {
         this.currentUITheme = currentUITheme;

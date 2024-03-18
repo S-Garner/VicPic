@@ -1,4 +1,4 @@
-package src.UIElements;
+package src.UIElements.Buttons;
 
 import src.UIElements.Colors.CurrentUITheme;
 
@@ -9,16 +9,27 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class RoundedButton extends JButton {
-    private Color hoverBackgroundColor;
-    private Color pressedBackgroundColor;
-    private int cornerRadius = 50;
-    private int borderThickness = 2;
-    private int fontSize = 16;
+    protected Color hoverBackgroundColor;
+    protected Color pressedBackgroundColor;
+    private final int cornerRadius = 50;
+    private final int borderThickness = 2;
+    private final int fontSize = 16;
 
     private CurrentUITheme current;
+    protected Image image;
 
     public RoundedButton(String text, CurrentUITheme currentUITheme) {
         super(text);
+        initButton(currentUITheme);
+    }
+
+    public RoundedButton(Image image, CurrentUITheme currentUITheme) {
+        super();
+        this.image = image;
+        initButton(currentUITheme);
+    }
+
+    protected void initButton(CurrentUITheme currentUITheme) {
         this.current = currentUITheme;
         this.setSize(new Dimension(350, 100));
         this.setPreferredSize(new Dimension(350, 100));
@@ -76,7 +87,6 @@ public class RoundedButton extends JButton {
 
     @Override
     protected void paintComponent(Graphics g) {
-        Color thisColor = new Color(23,45,21);
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
@@ -95,8 +105,21 @@ public class RoundedButton extends JButton {
         }
         g2.fillRoundRect(inset, inset, getWidth() - inset * 2, getHeight() - inset * 2, cornerRadius, cornerRadius);
 
-        super.paintComponent(g2);
+        // Draw image if available
+        if (image != null) {
+            int x = (getWidth() - image.getWidth(this)) / 2;
+            int y = (getHeight() - image.getHeight(this)) / 2;
+            g2.drawImage(image, x, y, this);
+        } else {
+            // Draw text if no image
+            super.paintComponent(g2);
+        }
+
         g2.dispose();
     }
 
+    public void setImage(Image image) {
+        this.image = image;
+        repaint();
+    }
 }

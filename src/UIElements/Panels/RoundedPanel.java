@@ -1,4 +1,4 @@
-package src.UIElements;
+package src.UIElements.Panels;
 
 import src.UIElements.Colors.CurrentUITheme;
 
@@ -7,17 +7,19 @@ import javax.swing.border.Border;
 import java.awt.*;
 
 public class RoundedPanel extends JPanel {
-    private int cornerRadius = 15;
-    private CurrentUITheme current;
+    private final int cornerRadius = 15;
+    private final CurrentUITheme current;
 
     public RoundedPanel(CurrentUITheme currentUITheme) {
         this.current = currentUITheme;
 
-        // Use theme colors
         setBackground(currentUITheme.getCurrentBackgroundColor().main());
         setForeground(currentUITheme.getCurrentForegroundColor().main());
 
         setOpaque(false);
+
+        Border marginBorder = BorderFactory.createEmptyBorder(100, 100, 100, 100);
+        setBorder(marginBorder);
 
         Border roundedBorder = BorderFactory.createLineBorder(currentUITheme.getCurrentForegroundColor().main(), 3, true);
         setBorder(roundedBorder);

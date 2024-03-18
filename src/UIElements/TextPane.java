@@ -4,15 +4,14 @@ import src.UIElements.Colors.CurrentUITheme;
 
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
 
 // Moving away from this, need to redesign
 
 public class TextPane extends JTextPane {
-    private CurrentUITheme current;
-    private Font font;
+    private final CurrentUITheme current;
+    private final Font font;
     private SimpleAttributeSet attributes;
     private StyledDocument doc;
 

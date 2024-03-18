@@ -3,7 +3,7 @@ package src.IOClasses;
 import src.Interfaces.Trigger;
 
 public class SignalAndStart implements Trigger {
-    private CompInstrHolder<?> compInstrHolder;
+    private final CompInstrHolder<?> compInstrHolder;
 
     public SignalAndStart(CompInstrHolder <?> compInstrHolder){
         this.compInstrHolder = compInstrHolder;

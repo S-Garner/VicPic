@@ -8,8 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TextCanvas extends JTextPane {
-    private CurrentUITheme current;
-    private Font font;
+    private final CurrentUITheme current;
+    private final Font font;
 
     public TextCanvas(CurrentUITheme current){
         this.current = current;
