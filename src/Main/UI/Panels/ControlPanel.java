@@ -1,57 +1,61 @@
 package src.Main.UI.Panels;
 
-import src.Interfaces.Trigger;
-import src.Main.UI.Buttons.VicButtons;
+import src.Main.UI.Format.VicFormatter;
+import src.UIElements.Buttons.RoundButton;
 import src.UIElements.Colors.CurrentUITheme;
 import src.UIElements.Colors.Images;
 import src.UIElements.Panels.RoundedPanel;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 
 public class ControlPanel {
     private RoundedPanel controlPanel;
-    private VicButtons addVictim;
-    private VicButtons deleteVictim;
-    private VicButtons editVictim;
-    private VicButtons editClass;
-    private VicButtons settings;
-    private VicButtons save;
-    private VicButtons exit;
+    private VicFormatter addVictim;
+    private VicFormatter deleteVictim;
+    private VicFormatter editVictim;
+    private VicFormatter editClass;
+    private VicFormatter settings;
+    private VicFormatter save;
+    private VicFormatter exit;
+    private VicFormatter topPanel;
 
     public ControlPanel(CurrentUITheme theme) {
         controlPanel = new RoundedPanel(theme);
         //controlPanel.setMaximumSize(new Dimension(30, 175));
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
+        int buffDistance = 5;
         Images imageGetter;
 
         Image image = null;
 
         imageGetter = new Images("plus", theme);
-        addVictim = new VicButtons(imageGetter.getImage(), theme, 5);
+        RoundButton addVic = new RoundButton(imageGetter.getImage(), theme);
+        addVictim = new VicFormatter(addVic, buffDistance);
 
         imageGetter = new Images("floppy", theme);
-        save = new VicButtons(imageGetter.getImage(), theme, 5);
+        RoundButton saveV = new RoundButton(imageGetter.getImage(), theme);
+        save = new VicFormatter(saveV, buffDistance);
 
         imageGetter = new Images("X", theme);
-        deleteVictim = new VicButtons(imageGetter.getImage(), theme, 5);
+        RoundButton delVic = new RoundButton(imageGetter.getImage(), theme);
+        deleteVictim = new VicFormatter(delVic, buffDistance);
 
         imageGetter = new Images("person", theme);
-        editVictim = new VicButtons(imageGetter.getImage(), theme, 5);
+        RoundButton edtVic = new RoundButton(imageGetter.getImage(), theme);
+        editVictim = new VicFormatter(edtVic, buffDistance);
 
         imageGetter = new Images("people", theme);
-        editClass = new VicButtons(imageGetter.getImage(), theme, 5);
+        RoundButton edtPpl = new RoundButton(imageGetter.getImage(), theme);
+        editClass = new VicFormatter(edtPpl, buffDistance);
 
         imageGetter = new Images("gear", theme);
-        settings = new VicButtons(imageGetter.getImage(), theme, 5);
+        RoundButton settns = new RoundButton(imageGetter.getImage(), theme);
+        settings = new VicFormatter(settns, buffDistance);
 
         imageGetter = new Images("door", theme);
-        exit = new VicButtons(imageGetter.getImage(), theme, 5);
+        RoundButton ext = new RoundButton(imageGetter.getImage(), theme);
+        exit = new VicFormatter(ext, buffDistance);
 
         controlPanel.add(addVictim.getPanel());
         controlPanel.add(deleteVictim.getPanel());
@@ -61,10 +65,13 @@ public class ControlPanel {
         controlPanel.add(Box.createRigidArea(new Dimension(10, 90)));
         controlPanel.add(save.getPanel());
         controlPanel.add(exit.getPanel());
+
+        topPanel = new VicFormatter(controlPanel, buffDistance);
+        topPanel.getPanel().setMinimumSize(new Dimension(300, 300));
     }
 
-    public RoundedPanel getPanel() {
-        return controlPanel;
+    public JPanel getFormat() {
+        return topPanel.getPanel();
     }
 
     public void updateColors(CurrentUITheme currentTheme) {

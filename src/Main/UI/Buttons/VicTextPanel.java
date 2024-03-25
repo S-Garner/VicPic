@@ -21,7 +21,7 @@ public class VicTextPanel {
         textCanvas.setMaximumSize(new Dimension(200, 45));
 
         shell.add(textCanvas);
-        MagPanel = new BufferedPanel<>(textCanvas, buffDistance);
+        MagPanel = new BufferedPanel<>(shell, buffDistance);
     }
 
     public BufferedPanel getPanel(){

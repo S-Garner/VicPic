@@ -7,7 +7,7 @@ import src.UIElements.Colors.CurrentUITheme;
 import javax.swing.*;
 import java.awt.*;
 
-public class TextCanvas extends JTextPane {
+public class TextCanvas extends JTextField {
     private final CurrentUITheme current;
     private final Font font;
 
@@ -25,6 +25,10 @@ public class TextCanvas extends JTextPane {
         setForeground(currentTheme.getCurrentForegroundColor().main());
         // If there are other color attributes to update, do it here
         repaint(); // Refresh the component to apply new colors
+    }
+
+    public void setColumnWidths(int columnWidth){
+        this.setColumns(columnWidth);
     }
 
 }

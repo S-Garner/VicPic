@@ -1,15 +1,11 @@
 package src.Main.UI.Panels;
 
-import src.UIElements.Buttons.RoundButton;
 import src.UIElements.Colors.CurrentUITheme;
-import src.UIElements.Panels.BufferedPanel;
 import src.UIElements.Panels.RoundedPanel;
 import src.WriterReader.Input;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 
 public class MainFrame {
@@ -43,12 +39,12 @@ public class MainFrame {
         JPanel second = new JPanel();
         second.setBackground(theme.getCurrentBackgroundColor().main());
         second.setLayout(new BoxLayout(second, BoxLayout.X_AXIS));
-        second.add(controlPanel.getPanel());
+        //second.add(controlPanel.getFormat());
         second.add(tester);
 
-        mainPanel.add(searchPanel.getPanel());
+        mainPanel.add(searchPanel.getFormat());
         mainPanel.add(second);
-        //mainPanel.add(controlPanel.getPanel());
+        mainPanel.add(controlPanel.getFormat());
         mainPanel.setBackground(theme.getCurrentBackgroundColor().main());
 
         // Add the main panel to the frame
