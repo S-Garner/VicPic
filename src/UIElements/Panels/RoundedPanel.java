@@ -35,4 +35,11 @@ public class RoundedPanel extends JPanel {
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), cornerRadius, cornerRadius);
         g2.dispose();
     }
+
+    public void updateColors(CurrentUITheme currentTheme) {
+        setBackground(currentTheme.getCurrentBackgroundColor().main());
+        setForeground(currentTheme.getCurrentForegroundColor().main());
+        // If there are other color attributes to update, do it here
+        repaint(); // Refresh the component to apply new colors
+    }
 }

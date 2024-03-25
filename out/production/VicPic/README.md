@@ -83,15 +83,13 @@ Geneal Ideas:
 
       - So, our button is done. When the actionListener has been triggered, it will perform it's 'execute' function on the compInstrHolder which is the update(). This will then go to the CompInstrHolder, and perform an update on the Object which is determined by the Instructions we want to do
    
-  - The reason I wanted to
-
-  - Lets say I have a button, and it's function is to set a number in a field. However, I would also like for that same button to display a string. How would have to either:
   - Why use it instead of just changing the actionListener for the button?
     * This method will allow buttons to have multiple functions
     * Keeps things like ui elements out of Logic side of the code
     * Can be used to link a chain of functions without directly affecting classes and objects
     * Giving two buttons the same function without having to write each button or creating a class for multiple buttons
     * Encapsulation of instructions; We can have instructions take in a function that another class may provide
+    * Instructions can passed along as a parameter and can be returned as a result. No need to create classes and statics to perform one function and less parameters needing to be passed.
 
 - I'll try to show a bit more after break and polish it up
 

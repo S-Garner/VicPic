@@ -27,6 +27,7 @@ public class RoundedButton extends JButton {
         super();
         this.image = image;
         initButton(currentUITheme);
+        //setMaximumSize(new Dimension(25,25));
     }
 
     protected void initButton(CurrentUITheme currentUITheme) {
@@ -83,6 +84,7 @@ public class RoundedButton extends JButton {
         hoverBackgroundColor = current.getCurrentBackgroundColor().select();
         pressedBackgroundColor = current.getCurrentBackgroundColor().action();
         setForeground(current.getCurrentForegroundColor().main());
+        repaint();
     }
 
     @Override
