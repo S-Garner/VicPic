@@ -30,7 +30,7 @@ public class SearchPanel {
         searchPanel.setBackground(this.theme.getCurrentBackgroundColor().main());
         searchPanel.setLayout(new BoxLayout(searchPanel, BoxLayout.X_AXIS));
 
-        logoGetter = new Images("logo2", this.theme);
+        logoGetter = new Images("logo4", this.theme);
         logo = logoGetter.getImage();
         ImagePanel imgPanel = new ImagePanel(logo, theme);
         imgPanel.setPreferredSize(new Dimension(logo.getWidth(null), logo.getHeight(null)));
@@ -41,15 +41,16 @@ public class SearchPanel {
         searchButton = new VicFormatter(magButton, buffDistance);
 
         //textPanel = new VicTextPanel(theme, 30, true, 5, 200, 120);
-        TextCanvas textPNL = new TextCanvas(theme, 12, true);
-        textPNL.setColumnWidths(20);
-        textPNL.setPreferredSize(new Dimension(200, 30));
+        TextCanvas textPNL = new TextCanvas(theme, 20, true);
+        textPNL.setColumnWidths(10);
+        //textPNL.setPreferredSize(new Dimension(1, 30));
         RoundedPanel round = new RoundedPanel(theme);
+        round.setPreferredSize(new Dimension(1, 1));
         round.add(textPNL);
         SwingUtilities.invokeLater(() -> textPNL.setCaretPosition(0));
 
         searchPanel.add(imgPanel); // Adding the image panel to the search panel
-        searchPanel.add(Box.createRigidArea(new Dimension(200, 1)));
+        searchPanel.add(Box.createRigidArea(new Dimension(100, 1)));
         searchPanel.add(searchButton.getPanel());
         searchPanel.add(round);
 

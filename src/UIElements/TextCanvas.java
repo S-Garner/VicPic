@@ -18,6 +18,7 @@ public class TextCanvas extends JTextField {
         this.setForeground(this.current.getCurrentForegroundColor().main());
         this.setFont(font);
         this.setEditable(editable);
+        this.setBorder(null);
     }
 
     public void updateColors(CurrentUITheme currentTheme) {

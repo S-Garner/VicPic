@@ -2,6 +2,7 @@ package src.Main;
 
 import src.Main.UI.Format.VicFormatter;
 import src.Main.UI.Panels.ControlPanel;
+import src.Main.UI.Panels.HighScorePanel;
 import src.Main.UI.Panels.MainFrame;
 import src.Main.UI.Panels.SearchPanel;
 import src.UIElements.Colors.*;
@@ -17,6 +18,7 @@ public class VicPic {
     public static void main(String[] args) {
         JFrame frame = new JFrame("test");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
 
         JPanel upPanel = new JPanel();
         //upPanel.setLayout(new FlowLayout());
@@ -35,11 +37,13 @@ public class VicPic {
 
         JPanel controlAndSecond = new JPanel();
         RoundedPanel round = new RoundedPanel(theme);
+        HighScorePanel highScores = new HighScorePanel(theme);
+        highScores.getFormat().setPreferredSize(new Dimension(200, 300));
+        round.add(highScores.getFormat());
         VicFormatter roundForm = new VicFormatter(round, 5);
-        round.setPreferredSize(new Dimension(800, 470));
+        round.setPreferredSize(new Dimension(680, 480));
 
         controlAndSecond.setLayout(new BorderLayout());
-
 
         ControlPanel cntrlPanel = new ControlPanel(theme);
         SearchPanel srchPanel = new SearchPanel(theme);
