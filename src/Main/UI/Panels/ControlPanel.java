@@ -8,6 +8,7 @@ import src.UIElements.Panels.RoundedPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 
 public class ControlPanel {
     private RoundedPanel controlPanel;
@@ -19,9 +20,14 @@ public class ControlPanel {
     private VicFormatter save;
     private VicFormatter exit;
     private VicFormatter topPanel;
+    private HashMap<String, JComponent> map;
 
     public ControlPanel(CurrentUITheme theme) {
+        map = new HashMap<>();
+
         controlPanel = new RoundedPanel(theme);
+        map.put("csControlPanel", controlPanel);
+
         //controlPanel.setMaximumSize(new Dimension(30, 175));
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
         int buffDistance = 5;
@@ -31,6 +37,7 @@ public class ControlPanel {
 
         imageGetter = new Images("plus", theme);
         RoundButton addVic = new RoundButton(imageGetter.getImage(), theme);
+        map.put("csAddVic", addVic);
         addVictim = new VicFormatter(addVic, buffDistance);
 
         imageGetter = new Images("floppy", theme);
