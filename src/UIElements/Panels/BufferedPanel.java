@@ -39,6 +39,13 @@ public class BufferedPanel<T extends Component> extends JPanel {
         add(eastRigidArea, BorderLayout.EAST);
     }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);  // Call superclass method first to paint the background
+        this.repaint();
+        innerComponent.repaint();
+    }
+
     public BufferedPanel getPanel(){
         return this;
     }

@@ -32,4 +32,11 @@ public class TextCanvas extends JTextField {
         this.setColumns(columnWidth);
     }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        // Custom painting code here
+    }
+
 }

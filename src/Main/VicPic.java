@@ -1,10 +1,13 @@
 package src.Main;
 
+import src.IOClasses.CompInstrHolder;
+import src.IOClasses.SimpleInstrHolder;
+import src.Interfaces.Instructions;
+import src.Interfaces.SimpleInstructions;
 import src.Main.UI.Format.VicFormatter;
-import src.Main.UI.Panels.ControlPanel;
-import src.Main.UI.Panels.HighScorePanel;
-import src.Main.UI.Panels.MainFrame;
-import src.Main.UI.Panels.SearchPanel;
+import src.Main.UI.Panels.*;
+import src.UIElements.Buttons.RoundButton;
+import src.UIElements.Buttons.RoundedButton;
 import src.UIElements.Colors.*;
 import src.UIElements.Panels.RoundedPanel;
 import src.WriterReader.Input;
@@ -13,9 +16,11 @@ import javax.print.attribute.standard.MediaSize;
 import javax.swing.*;
 import java.awt.*;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 
 public class VicPic {
     public static void main(String[] args) {
+        HashMap<String, JComponent> map;
         JFrame frame = new JFrame("test");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
@@ -57,6 +62,22 @@ public class VicPic {
         upPanel.setBackground(theme.getCurrentBackgroundColor().main());
 
         frame.getContentPane().add(upPanel);
+
+        map = cntrlPanel.getMap();
+
+        RoundButton button = (RoundButton) map.get("csSettings");
+
+        SimpleInstructions openFrame = () ->{
+            JFrame newFrame = new JFrame("Wheel");
+            newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            SpinningWheel wheel = new SpinningWheel(theme);
+            newFrame.add(wheel);
+            newFrame.pack();
+            newFrame.setVisible(true);
+        };
+
+        SimpleInstrHolder holder = new SimpleInstrHolder(openFrame);
+        button.addActionListener(e -> holder.execute());
 
         frame.pack();
         frame.setVisible(true);

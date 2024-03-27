@@ -14,7 +14,7 @@ import src.UIElements.TextCanvas;
 import javax.swing.*;
 import java.awt.*;
 
-public class SearchPanel {
+public class SearchPanel extends JPanel{
     JPanel searchPanel;
     CurrentUITheme theme;
     Images logoGetter;
@@ -30,23 +30,24 @@ public class SearchPanel {
         searchPanel.setBackground(this.theme.getCurrentBackgroundColor().main());
         searchPanel.setLayout(new BoxLayout(searchPanel, BoxLayout.X_AXIS));
 
-        logoGetter = new Images("logo4", this.theme);
+        logoGetter = new Images("logo", this.theme, true);
         logo = logoGetter.getImage();
         ImagePanel imgPanel = new ImagePanel(logo, theme);
         imgPanel.setPreferredSize(new Dimension(logo.getWidth(null), logo.getHeight(null)));
 
 
-        logoGetter = new Images("magnifyGlass", theme);
+        logoGetter = new Images("magnifyGlass", theme, true);
         RoundedButton magButton = new RoundButton(logoGetter.getImage(), theme);
         searchButton = new VicFormatter(magButton, buffDistance);
 
         //textPanel = new VicTextPanel(theme, 30, true, 5, 200, 120);
-        TextCanvas textPNL = new TextCanvas(theme, 20, true);
+        TextCanvas textPNL = new TextCanvas(theme, 22, true);
+        VicFormatter textFormat = new VicFormatter(textPNL, 5);
         textPNL.setColumnWidths(10);
         //textPNL.setPreferredSize(new Dimension(1, 30));
         RoundedPanel round = new RoundedPanel(theme);
         round.setPreferredSize(new Dimension(1, 1));
-        round.add(textPNL);
+        round.add(textFormat.getPanel());
         SwingUtilities.invokeLater(() -> textPNL.setCaretPosition(0));
 
         searchPanel.add(imgPanel); // Adding the image panel to the search panel
@@ -60,6 +61,13 @@ public class SearchPanel {
 
     public JPanel getFormat(){
         return topPanel.getPanel();
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);  // Call superclass method first to paint the background
+        this.repaint();
+        topPanel.getPanel().repaint();
     }
 
 }

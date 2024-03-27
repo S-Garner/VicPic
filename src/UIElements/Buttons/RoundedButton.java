@@ -79,7 +79,7 @@ public class RoundedButton extends JButton {
         });
     }
 
-    private void updateButtonColors() {
+    protected void updateButtonColors() {
         setBackground(current.getCurrentBackgroundColor().main());
         hoverBackgroundColor = current.getCurrentBackgroundColor().select();
         pressedBackgroundColor = current.getCurrentBackgroundColor().action();

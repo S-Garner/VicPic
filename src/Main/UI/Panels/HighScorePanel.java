@@ -7,8 +7,10 @@ import src.UIElements.TextCanvas;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 
 public class HighScorePanel {
+    private HashMap<String, JComponent> map;
     private CurrentUITheme theme;
 
     private VicFormatter scoreFormat;
@@ -38,29 +40,37 @@ public class HighScorePanel {
     private TextCanvas Highscores;
 
     public HighScorePanel(CurrentUITheme theme){
+        map = new HashMap<>();
+
         int buffDistance = 5;
         int fontSize = 15;
         this.theme = theme;
 
         mainPanel = new RoundedPanel(this.theme);
         mainPanel.setLayout(new BorderLayout());
+        map.put("hsMainPanel", mainPanel);
 
         Highscores = new TextCanvas(theme, fontSize, false);
-        Highscores.setText("~ HIGHSCORES ~");
+        Highscores.setText("      ~ HIGHSCORES ~");
+        map.put("hsHighscores", Highscores);
 
         ScoreContainer = new JPanel();
         ScoreContainer.setLayout(new BoxLayout(ScoreContainer, BoxLayout.Y_AXIS));
 
+
         No1Lbl = new TextCanvas(theme, fontSize, false);
-        No1Lbl.setText("#1: ");
+        No1Lbl.setText("#1:");
+        No1Lbl.setHighlighter(null);
+        No1Lbl.setEditable(false);
+        No1Lbl.setFocusable(false);
         No2Lbl = new TextCanvas(theme, fontSize, false);
-        No2Lbl.setText("#2: ");
+        No2Lbl.setText("#2:");
         No3Lbl = new TextCanvas(theme, fontSize, false);
-        No3Lbl.setText("#3: ");
+        No3Lbl.setText("#3:");
         No4Lbl = new TextCanvas(theme, fontSize, false);
-        No4Lbl.setText("#4: ");
+        No4Lbl.setText("#4:");
         No5Lbl = new TextCanvas(theme, fontSize, false);
-        No5Lbl.setText("#5: ");
+        No5Lbl.setText("#5:");
 
         No1 = new TextCanvas(theme, fontSize, false);
         No2 = new TextCanvas(theme, fontSize, false);
@@ -69,11 +79,13 @@ public class HighScorePanel {
         No5 = new TextCanvas(theme, fontSize, false);
 
         RoundedPanel panel1 = new RoundedPanel(theme);
-        panel1.setLayout(new FlowLayout());
-        panel1.add(No1Lbl);
+        panel1.setLayout(new BoxLayout(panel1, BoxLayout.X_AXIS));
+        No1Lbl.setSize(new Dimension(30, 30));
+        VicFormatter panel1Form = new VicFormatter(No1Lbl, 5);
+        panel1.add(panel1Form.getPanel());
         panel1.add(No1);
         No1.setText("Test1");
-        panel1.setSize(new Dimension(200, 70));
+        panel1.setSize(new Dimension(200, 10));
         No1Form = new VicFormatter(panel1, 2);
 
         RoundedPanel panel2 = new RoundedPanel(theme);

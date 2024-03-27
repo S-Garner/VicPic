@@ -15,13 +15,18 @@ public class Images {
     private String assetPath = "C:/Github/VicPic/src/Main/Assets/";
     private String extension = ".png";
 
-    public Images(String imageSelect, CurrentUITheme theme){
+    public Images(String imageSelect, CurrentUITheme theme, boolean Alter){
         this.imageSelect = imageSelect;
         this.imagePath = this.assetPath + this.imageSelect + this.extension;
 
         try{
-            image = ImageIO.read(new File(this.imagePath));
-            processImage(theme.getCurrentForegroundColor().main());
+            if (Alter == true) {
+                image = ImageIO.read(new File(this.imagePath));
+                processImage(theme.getCurrentForegroundColor().main());
+            }else if(Alter == false){
+                image = ImageIO.read(new File(this.imagePath));
+            }
+            //image = cropImageToSize(image, 150, 150);
         }catch (IOException e){
             e.printStackTrace();
             image = null;
@@ -54,5 +59,18 @@ public class Images {
     public BufferedImage getImage() {
         return image;
     }
+
+    /*
+    private BufferedImage cropImageToSize(BufferedImage sourceImage, int maxWidth, int maxHeight) {
+        if (sourceImage.getWidth() > maxWidth || sourceImage.getHeight() > maxHeight) {
+            // Calculate the top-left corner of the crop area to center the crop
+            int x = (sourceImage.getWidth() - maxWidth) / 2;
+            int y = (sourceImage.getHeight() - maxHeight) / 2;
+            return sourceImage.getSubimage(x, y, maxWidth, maxHeight);
+        }
+        return sourceImage;
+    }
+
+     */
 
 }
