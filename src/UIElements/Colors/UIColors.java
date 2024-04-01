@@ -11,6 +11,12 @@ public class UIColors {
     final static ColorScheme MARIGOLD = new ColorScheme(Color.decode("#EDE682"), Color.decode("#D8CC6E"), Color.decode("#C2B259"));
     final static ColorScheme CRIMSON = new ColorScheme(Color.decode("#ED4434"), Color.decode("#DA2714"), Color.decode("#9C1C0E"));
     final static ColorScheme EGG = new ColorScheme(Color.decode("#F7F7F7"), Color.decode("#DCDBDF"), Color.decode("#BDBCC2"));
+    final static ColorScheme TEAMBLUE = new ColorScheme(Color.decode("#0000FF"), Color.decode("#0102A9"), Color.decode("#00003C"));
+    final static ColorScheme TEAMRED = new ColorScheme(Color.decode("#FD1313"), Color.decode("#AF0303"), Color.decode("#6D0101"));
+    final static ColorScheme TEAMGREEN = new ColorScheme(Color.decode("#00FF00"), Color.decode("#03C102"), Color.decode("#038602"));
+    final static ColorScheme TEAMYELLOW = new ColorScheme(Color.decode("#FFFF00"), Color.decode("#E1E004"), Color.decode("#C1C002"));
+
+
 
     public static ColorScheme getColorScheme(String name) {
         switch (name.toLowerCase()) {
@@ -28,6 +34,14 @@ public class UIColors {
                 return CRIMSON;
             case "egg":
                 return EGG;
+            case "teamblue":
+                return TEAMBLUE;
+            case "teamred":
+                return TEAMRED;
+            case "teamgreen":
+                return TEAMGREEN;
+            case "teamyellow":
+                return TEAMYELLOW;
             default:
                 throw new IllegalArgumentException("Unknown color scheme");
         }

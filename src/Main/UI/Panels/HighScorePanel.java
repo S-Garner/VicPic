@@ -89,35 +89,43 @@ public class HighScorePanel {
         No1Form = new VicFormatter(panel1, 2);
 
         RoundedPanel panel2 = new RoundedPanel(theme);
-        panel2.setLayout(new FlowLayout());
-        panel2.add(No2Lbl);
+        panel2.setLayout(new BoxLayout(panel2, BoxLayout.X_AXIS));
+        No2Lbl.setSize(new Dimension(30, 30));
+        VicFormatter panel2Form = new VicFormatter(No2Lbl, 5);
+        panel2.add(panel2Form.getPanel());
         panel2.add(No2);
         No2.setText("Test2");
-        panel2.setSize(new Dimension(200, 70));
+        panel2.setSize(new Dimension(200, 10));
         No2Form = new VicFormatter(panel2, 2);
 
         RoundedPanel panel3 = new RoundedPanel(theme);
-        panel3.setLayout(new FlowLayout());
-        panel3.add(No3Lbl);
+        panel3.setLayout(new BoxLayout(panel3, BoxLayout.X_AXIS));
+        No3Lbl.setSize(new Dimension(30, 30));
+        VicFormatter panel3Form = new VicFormatter(No3Lbl, 5);
+        panel3.add(panel3Form.getPanel());
         panel3.add(No3);
         No3.setText("Test3");
-        panel3.setSize(new Dimension(200, 70));
+        panel3.setSize(new Dimension(200, 10));
         No3Form = new VicFormatter(panel3, 2);
 
         RoundedPanel panel4 = new RoundedPanel(theme);
-        panel4.setLayout(new FlowLayout());
-        panel4.add(No4Lbl);
+        panel4.setLayout(new BoxLayout(panel4, BoxLayout.X_AXIS));
+        No4Lbl.setSize(new Dimension(30, 30));
+        VicFormatter panel4Form = new VicFormatter(No4Lbl, 5);
+        panel4.add(panel4Form.getPanel());
         panel4.add(No4);
         No4.setText("Test4");
-        panel4.setSize(new Dimension(200, 70));
+        panel4.setSize(new Dimension(200, 10));
         No4Form = new VicFormatter(panel4, 2);
 
         RoundedPanel panel5 = new RoundedPanel(theme);
-        panel5.setLayout(new FlowLayout());
-        panel5.add(No5Lbl);
+        panel5.setLayout(new BoxLayout(panel5, BoxLayout.X_AXIS));
+        No5Lbl.setSize(new Dimension(30, 30));
+        VicFormatter panel5Form = new VicFormatter(No5Lbl, 5);
+        panel5.add(panel5Form.getPanel());
         panel5.add(No5);
         No5.setText("Test5");
-        panel5.setSize(new Dimension(200, 70));
+        panel5.setSize(new Dimension(200, 10));
         No5Form = new VicFormatter(panel5, 2);
 
         ScoreContainer.add(No1Form.getPanel());
@@ -139,15 +147,18 @@ public class HighScorePanel {
         ScoreContainer.setBackground(theme.getCurrentBackgroundColor().main());
 
         VicFormatter contScoreFormat = new VicFormatter(ScoreContainer, buffDistance);
-        contScoreFormat.getPanel().setPreferredSize(new Dimension(500, 600));
+        contScoreFormat.getPanel().setSize(new Dimension(800, 600));
         contScoreFormat.getPanel().setBackground(theme.getCurrentBackgroundColor().main());
         VicFormatter highScoreFormat = new VicFormatter(Highscores, buffDistance);
 
+
+        mainPanel.setPreferredSize(new Dimension(800, 100));
         mainPanel.add(contScoreFormat.getPanel(), BorderLayout.CENTER);
         mainPanel.add(highScoreFormat.getPanel(), BorderLayout.NORTH);
         mainPanel.setBackground(theme.getCurrentBackgroundColor().main());
 
         scoreFormat = new VicFormatter(mainPanel, buffDistance);
+        scoreFormat.getPanel().setPreferredSize(new Dimension(800, 100));
         scoreFormat.getPanel().setBackground(theme.getCurrentBackgroundColor().main());
 
     }

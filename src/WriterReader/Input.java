@@ -1,6 +1,6 @@
 package src.WriterReader;
 
-import src.Students.Student;
+import src.Students.Victim;
 //import src.Students.StudentFunctions.Names;
 import src.UIElements.Colors.CurrentUITheme;
 import src.Students.StudentFunctions.*;
@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Input {
-    public static ArrayList<Student> readStudentFile(String fileName) throws FileNotFoundException {
-        ArrayList<Student> students = new ArrayList<Student>();
+    public static ArrayList<Victim> readStudentFile(String fileName) throws FileNotFoundException {
+        ArrayList<Victim> students = new ArrayList<>();
         Scanner scanner = new Scanner(new File(fileName));
 
         while (scanner.hasNextLine()) {
             Names names = new Names();
-            int points = 0, absences = 0, numPicked = 0, passed = 0, answered = 0;
+            int points = 0, absences = 0, numPicked = 0, passed = 0, answered = 0, phone = 0, jail = 0;
 
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine().trim();
@@ -26,25 +26,27 @@ public class Input {
                     names.setFirstName(line.substring(11).trim());
                 } else if (line.startsWith("Last name:")) {
                     names.setLastName(line.substring(10).trim());
-                } else if (line.startsWith("Nick name:")) {
-                    names.setNickName(line.substring(10).trim());
-                    if (names.getNickName().isEmpty()) {
-                        names.setNickName("");
-                    }
-                } else if (line.startsWith("Points:") && line.length() > 7) {
+                } else if (line.startsWith("Nickname:")) { // Fixed the key to match your example
+                    names.setNickName(line.substring(9).trim());
+                } else if (line.startsWith("Points:")) {
                     points = Integer.parseInt(line.substring(7).trim());
-                } else if (line.startsWith("Absents:") && line.length() > 8) {
+                } else if (line.startsWith("Absents:")) {
                     absences = Integer.parseInt(line.substring(8).trim());
-                } else if (line.startsWith("Answered:") && line.length() > 9) {
+                } else if (line.startsWith("Answered:")) {
                     answered = Integer.parseInt(line.substring(9).trim());
-                } else if (line.startsWith("Times Picked:") && line.length() > 13) {
+                } else if (line.startsWith("Times Picked:")) {
                     numPicked = Integer.parseInt(line.substring(13).trim());
-                } else if (line.startsWith("Passed:") && line.length() > 7) {
+                } else if (line.startsWith("Passed:")) {
                     passed = Integer.parseInt(line.substring(7).trim());
+                } else if (line.startsWith("Phone:")) {
+                    phone = Integer.parseInt(line.substring(6).trim());
+                } else if (line.startsWith("Jail:")) {
+                    jail = Integer.parseInt(line.substring(5).trim());
 
-                    Student tempStudent = new Student(names, points, absences, numPicked, passed, answered);
+                    Victim tempStudent = new Victim(names, points, absences, numPicked, passed, answered, phone, jail);
                     students.add(tempStudent);
 
+                    // Reset or break the loop if it's the end of a student's data
                     break;
                 }
             }

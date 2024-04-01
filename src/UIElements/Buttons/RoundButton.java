@@ -8,7 +8,6 @@ public class RoundButton extends RoundedButton {
 
     public RoundButton(Image image, CurrentUITheme currentUITheme) {
         super(image, currentUITheme); // Use the constructor from RoundedButton
-        // Assuming the image is a square and we want a circular button that encompasses the image
         this.diameter = Math.max(image.getWidth(null), image.getHeight(null)) + 20;
         //setPreferredSize(new Dimension(diameter, diameter));
         setMaximumSize(new Dimension(diameter, diameter));

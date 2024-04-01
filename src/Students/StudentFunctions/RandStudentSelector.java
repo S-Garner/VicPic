@@ -1,23 +1,23 @@
 package src.Students.StudentFunctions;
 
-import src.Students.Student;
+import src.Students.Victim;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class RandStudentSelector {
-    private static ArrayList<Student> students;
+    private static ArrayList<Victim> students;
 
-    public static void addStudents(ArrayList<Student> impStudents) throws ArrayEmptyException {
+    public static void addStudents(ArrayList<Victim> impStudents) throws ArrayEmptyException {
         if (impStudents.isEmpty()) {
             throw new ArrayEmptyException();
         }
         students = impStudents;
     }
 
-    public static Student getRandomStudent(ArrayList<Student> impStudents) {
-        Student pickedStudent = null;
+    public static Victim getRandomStudent(ArrayList<Victim> impStudents, List<Victim> existingPlayers) {
+        Victim pickedStudent = null;
 
         try {
             addStudents(impStudents);
@@ -26,21 +26,25 @@ public class RandStudentSelector {
             double totalInfluence = 0;
 
             // Calculate total influence
-            for (Student student : students) {
-                totalInfluence += student.getInfluenceScore();
+            for (Victim student : students) {
+                if (!existingPlayers.contains(student)) {
+                    totalInfluence += student.getInfluenceScore();
+                }
             }
 
             double randomValue = rand.nextDouble() * totalInfluence;
 
-            List<Student> candidates = new ArrayList<>();
+            List<Victim> candidates = new ArrayList<>();
             double sum = 0;
 
-            for (Student student : students) {
-                sum += student.getInfluenceScore();
-                if (randomValue <= sum) {
-                    candidates.add(student);
-                    if (randomValue < sum) {
-                        break;
+            for (Victim student : students) {
+                if (!existingPlayers.contains(student)) {
+                    sum += student.getInfluenceScore();
+                    if (randomValue <= sum) {
+                        candidates.add(student);
+                        if (randomValue < sum) {
+                            break;
+                        }
                     }
                 }
             }

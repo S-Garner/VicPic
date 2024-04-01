@@ -1,6 +1,7 @@
 package src.UIElements.Buttons;
 
 import src.UIElements.Colors.CurrentUITheme;
+import src.UIElements.Colors.UIColors;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -16,18 +17,31 @@ public class RoundedButton extends JButton {
     private final int fontSize = 16;
 
     private CurrentUITheme current;
+    private CurrentUITheme tempTheme;
+
     protected Image image;
+
+    private boolean isTeamColorSet = false;
 
     public RoundedButton(String text, CurrentUITheme currentUITheme) {
         super(text);
         initButton(currentUITheme);
+        tempTheme = currentUITheme;
     }
 
     public RoundedButton(Image image, CurrentUITheme currentUITheme) {
         super();
         this.image = image;
         initButton(currentUITheme);
+        tempTheme = currentUITheme;
         //setMaximumSize(new Dimension(25,25));
+    }
+
+    public void setTeamColorSet(String teamColors){
+        tempTheme.setCurrentBackgroundColor(teamColors);
+        tempTheme.setCurrentForegroundColor(current.getForegroundString());
+        isTeamColorSet = true;
+        updateButtonColors();
     }
 
     protected void initButton(CurrentUITheme currentUITheme) {
@@ -52,7 +66,8 @@ public class RoundedButton extends JButton {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                setBackground(hoverBackgroundColor);
+                setBackground(currentUITheme.getCurrentBackgroundColor().select());
+                //setBackground(hoverBackgroundColor);
             }
 
             @Override
@@ -67,6 +82,7 @@ public class RoundedButton extends JButton {
                 green = 255 - currentUITheme.getCurrentForegroundColor().main().getGreen();
                 blue = 255 - currentUITheme.getCurrentForegroundColor().main().getBlue();
                 Color tempForeground = new Color(red, green, blue);
+                setBackground(currentUITheme.getCurrentBackgroundColor().action());
                 setBackground(pressedBackgroundColor);
                 setForeground(tempForeground);
             }
@@ -79,10 +95,16 @@ public class RoundedButton extends JButton {
         });
     }
 
-    protected void updateButtonColors() {
-        setBackground(current.getCurrentBackgroundColor().main());
-        hoverBackgroundColor = current.getCurrentBackgroundColor().select();
-        pressedBackgroundColor = current.getCurrentBackgroundColor().action();
+    protected void updateButtonColors(){
+        if(isTeamColorSet){
+            setBackground(tempTheme.getCurrentBackgroundColor().main());
+            hoverBackgroundColor = tempTheme.getCurrentBackgroundColor().select();
+            pressedBackgroundColor = tempTheme.getCurrentBackgroundColor().action();
+        }else{
+            setBackground(current.getCurrentBackgroundColor().main());
+            hoverBackgroundColor = current.getCurrentBackgroundColor().select();
+            pressedBackgroundColor = current.getCurrentBackgroundColor().action();
+        }
         setForeground(current.getCurrentForegroundColor().main());
         repaint();
     }
@@ -123,5 +145,13 @@ public class RoundedButton extends JButton {
     public void setImage(Image image) {
         this.image = image;
         repaint();
+    }
+
+    protected int getCornerRadius() {
+        return cornerRadius;
+    }
+
+    protected int getBorderThickness(){
+        return borderThickness;
     }
 }
