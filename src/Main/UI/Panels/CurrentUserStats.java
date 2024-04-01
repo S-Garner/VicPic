@@ -111,7 +111,7 @@ public class CurrentUserStats extends JPanel{
         pointsPnl.setLayout(new BoxLayout(pointsPnl, BoxLayout.X_AXIS));
         pointsPnl.setBackground(null);
         pointsLbl = new TextCanvas(inverse, fontSize, unEditable);
-        pointsLbl.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
+        //pointsLbl.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
         pointsLbl.setOpaque(true);
         pointsLbl.setText("Points: ");
         pointsLbl.setPreferredSize(new Dimension(1, 1));
@@ -133,11 +133,40 @@ public class CurrentUserStats extends JPanel{
         absentPnl.add(absentLbl);
         nickNamePnl.add(absentMain);
 
+        JPanel ansAndTimePickedPanel = new JPanel();
+        ansAndTimePickedPanel.setLayout(new BoxLayout(ansAndTimePickedPanel, BoxLayout.X_AXIS));
+
+        JPanel answeredPanel = new JPanel();
+        answeredPanel.setLayout(new BoxLayout(answeredPanel, BoxLayout.X_AXIS));
+        answeredPanel.setBackground(null);
+        answeredLbl = new TextCanvas(inverse, fontSize, unEditable);
+        answeredLbl.setText("Answered: ");
+        answeredMain = new TextCanvas(inverse, fontSize, unEditable); // Where first and last name displayed
+        answeredMain.setPreferredSize(new Dimension(160, 1));
+        answeredMain.setText(answered);
+        answeredPanel.add(answeredLbl);
+        answeredPanel.add(answeredMain);
+
+        JPanel timesPickedPanel = new JPanel();
+        timesPickedPanel.setLayout(new BoxLayout(timesPickedPanel, BoxLayout.X_AXIS));
+        timesPickedPanel.setBackground(null);
+        timesPickLbl = new TextCanvas(inverse, fontSize, unEditable);
+        timesPickLbl.setText("Times Picked: ");
+        timesPickedMain = new TextCanvas(inverse, fontSize, unEditable);
+        timesPickedMain.setPreferredSize(new Dimension(200, 1));
+        timesPickedMain.setText(timesPicked);
+        timesPickedPanel.add(timesPickLbl);
+        timesPickedPanel.add(timesPickedMain);
+
+        ansAndTimePickedPanel.add(answeredPanel);
+        ansAndTimePickedPanel.add(timesPickedPanel);
+
         pointsAndAbsents.add(pointsPnl);
         pointsAndAbsents.add(absentPnl);
 
         contentFrame.add(fullNickPanel);
         contentFrame.add(pointsAndAbsents);
+        contentFrame.add(ansAndTimePickedPanel);
 
         mainPanel.add(contentFrame);
 
