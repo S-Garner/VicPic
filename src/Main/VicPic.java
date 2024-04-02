@@ -50,9 +50,9 @@ public class VicPic {
         String filePath = saveFilePath + vicList;
         vics = Input.readStudentFile(filePath);
 
-        randomizeImages randomImg = new randomizeImages(vics, photoPath);
+        //randomizeImages randomImg = new randomizeImages(vics, photoPath);
 
-        randomImg.assignPhotosToVictims();
+        //randomImg.assignPhotosToVictims();
 
         frame.setBackground(theme.getCurrentBackgroundColor().main());
 
@@ -69,10 +69,13 @@ public class VicPic {
         JPanel anotherOne = new JPanel();
         anotherOne.setBackground(null);
         anotherOne.add(psPanel.getFormat());
-        //psPanel.getFormat().setPreferredSize(new Dimension(800, 800));
         PlayerDisplayPanel playDisplayPanel = new PlayerDisplayPanel(theme, vics);
         JPanel anotherTwo = new JPanel();
+        CurrentUserStats stats = new CurrentUserStats(theme);
         anotherTwo.add(playDisplayPanel.getTopPanel());
+        JPanel anotherFour = new JPanel();
+        anotherFour.setBackground(null);
+        anotherFour.add(stats.getMainPanel());
 
         JPanel anotherThree = new JPanel();
         anotherThree.setLayout(new BoxLayout(anotherThree, BoxLayout.Y_AXIS));
@@ -80,6 +83,7 @@ public class VicPic {
         anotherThree.add(anotherTwo);
         anotherTwo.setBackground(null);
         anotherThree.add(anotherOne);
+        anotherThree.add(anotherFour);
         anotherThree.setBackground(null);
         anotherThree.setBackground(null);
 
@@ -104,8 +108,6 @@ public class VicPic {
         //round.add(play2.getPanel());
         //round.add(firstPLFirst.getPanel());
         //round.add(secondPLFirst.getPanel());
-        CurrentUserStats stats = new CurrentUserStats(theme);
-        round.add(stats.getMainPanel());
         VicFormatter roundForm = new VicFormatter(round, 5);
         //round.setPreferredSize(new Dimension(680, 480));
 
@@ -141,7 +143,7 @@ public class VicPic {
             //resize(player.getImage(), 12, 12);
             //player.repaint();
 
-            randomImg.resetAll();
+            //randomImg.resetAll();
 
         };
 

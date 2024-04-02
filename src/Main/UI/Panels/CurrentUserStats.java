@@ -9,6 +9,7 @@ import src.UIElements.TextCanvas;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.util.HashMap;
 
@@ -59,14 +60,14 @@ public class CurrentUserStats extends JPanel{
         map = new HashMap<>();
 
         int buffDistance = 3;
-        int fontSize = 22;
+        int fontSize = 15;
         boolean unEditable = false;
 
         theme = inTheme;
         inverse = new CurrentUITheme(theme.getForegroundString(), theme.getBackgroundString());
 
         mainPanel = new RoundedPanel(theme);
-        mainPanel.setMinimumSize(new Dimension(900, 1));
+        mainPanel.setPreferredSize(new Dimension(720, 110));
         //mainPanel.setPreferredSize(new Dimension(900, 75));
         mainPanelFormat = new VicFormatter<>(mainPanel, buffDistance);
 
@@ -82,10 +83,14 @@ public class CurrentUserStats extends JPanel{
         fullNamePnl.setLayout(new BoxLayout(fullNamePnl, BoxLayout.X_AXIS));
         fullNamePnl.setBackground(null);
         fullNameLbl = new TextCanvas(inverse, fontSize, unEditable);
+        fullNameLbl.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
         fullNameLbl.setText("Full Name: ");
+        fullNameLbl.setPreferredSize(new Dimension(2, 1));
         fullName = new TextCanvas(inverse, fontSize, unEditable); // Where first and last name displayed
-        fullName.setPreferredSize(new Dimension(160, 1));
-        fullName.setText(firstName + " " + lastName);
+        fullName.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
+        fullName.setText("Test");
+        fullName.setSize(new Dimension(90, 1));
+        //fullName.setText(firstName + " " + lastName);
         fullNamePnl.add(fullNameLbl);
         fullNamePnl.add(fullName);
 
@@ -93,10 +98,14 @@ public class CurrentUserStats extends JPanel{
         nickNamePnl.setLayout(new BoxLayout(nickNamePnl, BoxLayout.X_AXIS));
         nickNamePnl.setBackground(null);
         nickNameLbl = new TextCanvas(inverse, fontSize, unEditable);
+        nickNameLbl.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
         nickNameLbl.setText("Nickname: ");
+        nickNameLbl.setPreferredSize(new Dimension(50, 1));
         nickNameMain = new TextCanvas(inverse, fontSize, unEditable);
-        nickNameMain.setPreferredSize(new Dimension(200, 1));
-        nickNameMain.setText(nickName);
+        nickNameMain.setPreferredSize(new Dimension(150, 1));
+        nickNameMain.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
+        nickNameMain.setText("Test");
+        //nickNameMain.setText(nickName);
         nickNamePnl.add(nickNameLbl);
         nickNamePnl.add(nickNameMain);
 
@@ -111,13 +120,15 @@ public class CurrentUserStats extends JPanel{
         pointsPnl.setLayout(new BoxLayout(pointsPnl, BoxLayout.X_AXIS));
         pointsPnl.setBackground(null);
         pointsLbl = new TextCanvas(inverse, fontSize, unEditable);
-        //pointsLbl.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
+        pointsLbl.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
         pointsLbl.setOpaque(true);
         pointsLbl.setText("Points: ");
         pointsLbl.setPreferredSize(new Dimension(1, 1));
         pointsMain = new TextCanvas(inverse, fontSize, unEditable); // Where first and last name displayed
-        pointsMain.setPreferredSize(new Dimension(55, 1));
-        pointsMain.setText("55");
+        pointsMain.setPreferredSize(new Dimension(30, 1));
+        pointsMain.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
+        pointsMain.setText("Test");
+        //pointsMain.setText(points);
         pointsPnl.add(pointsLbl);
         pointsPnl.add(pointsMain);
 
@@ -125,9 +136,11 @@ public class CurrentUserStats extends JPanel{
         absentPnl.setLayout(new BoxLayout(absentPnl, BoxLayout.X_AXIS));
         absentPnl.setBackground(null);
         absentLbl = new TextCanvas(inverse, fontSize, unEditable);
+        absentLbl.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
         absentPnl.setOpaque(true);
         absentLbl.setText("Absents: ");
         absentMain = new TextCanvas(inverse, fontSize, unEditable);
+        absentMain.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
         absentMain.setSize(new Dimension(200, 10));
         absentMain.setText(absents);
         absentPnl.add(absentLbl);
@@ -140,9 +153,11 @@ public class CurrentUserStats extends JPanel{
         answeredPanel.setLayout(new BoxLayout(answeredPanel, BoxLayout.X_AXIS));
         answeredPanel.setBackground(null);
         answeredLbl = new TextCanvas(inverse, fontSize, unEditable);
+        answeredLbl.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
         answeredLbl.setText("Answered: ");
         answeredMain = new TextCanvas(inverse, fontSize, unEditable); // Where first and last name displayed
-        answeredMain.setPreferredSize(new Dimension(160, 1));
+        answeredMain.setPreferredSize(new Dimension(170, 1));
+        answeredMain.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
         answeredMain.setText(answered);
         answeredPanel.add(answeredLbl);
         answeredPanel.add(answeredMain);
@@ -151,8 +166,10 @@ public class CurrentUserStats extends JPanel{
         timesPickedPanel.setLayout(new BoxLayout(timesPickedPanel, BoxLayout.X_AXIS));
         timesPickedPanel.setBackground(null);
         timesPickLbl = new TextCanvas(inverse, fontSize, unEditable);
+        timesPickLbl.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
         timesPickLbl.setText("Times Picked: ");
         timesPickedMain = new TextCanvas(inverse, fontSize, unEditable);
+        timesPickedMain.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
         timesPickedMain.setPreferredSize(new Dimension(200, 1));
         timesPickedMain.setText(timesPicked);
         timesPickedPanel.add(timesPickLbl);
@@ -164,12 +181,45 @@ public class CurrentUserStats extends JPanel{
         pointsAndAbsents.add(pointsPnl);
         pointsAndAbsents.add(absentPnl);
 
+        JPanel passAndInfluencePanel = new JPanel();
+        passAndInfluencePanel.setLayout(new BoxLayout(passAndInfluencePanel, BoxLayout.X_AXIS));
+
+        JPanel passedPanel = new JPanel();
+        passedPanel.setLayout(new BoxLayout(passedPanel, BoxLayout.X_AXIS));
+        passedPanel.setBackground(null);
+        passedLbl = new TextCanvas(inverse, fontSize, unEditable);
+        passedLbl.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
+        passedLbl.setText("Passed: ");
+        passedMain = new TextCanvas(inverse, fontSize, unEditable); // Where first and last name displayed
+        passedMain.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
+        passedMain.setPreferredSize(new Dimension(170, 1));
+        passedMain.setText(passed);
+        passedPanel.add(passedLbl);
+        passedPanel.add(passedMain);
+
+        JPanel influencePanel = new JPanel();
+        influencePanel.setLayout(new BoxLayout(influencePanel, BoxLayout.X_AXIS));
+        influencePanel.setBackground(null);
+        inflLbl = new TextCanvas(inverse, fontSize, unEditable);
+        inflLbl.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
+        inflLbl.setText("Influence: ");
+        influenceMain = new TextCanvas(inverse, fontSize, unEditable);
+        influenceMain.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
+        influenceMain.setPreferredSize(new Dimension(200, 1));
+        influenceMain.setText(influence);
+        influencePanel.add(inflLbl);
+        influencePanel.add(influenceMain);
+
+        passAndInfluencePanel.add(passedPanel);
+        passAndInfluencePanel.add(influencePanel);
+
         contentFrame.add(fullNickPanel);
         contentFrame.add(pointsAndAbsents);
         contentFrame.add(ansAndTimePickedPanel);
+        contentFrame.add(passAndInfluencePanel);
 
         mainPanel.add(contentFrame);
-
+        mainPanel.setBackground(null);
 
     }
 

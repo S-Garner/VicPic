@@ -10,6 +10,7 @@ import src.UIElements.Panels.RoundedPanel;
 import src.UIElements.TextCanvas;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import java.awt.*;
 
 public class SearchPanel extends JPanel{
@@ -34,28 +35,30 @@ public class SearchPanel extends JPanel{
         logo = logoGetter.getImage();
         ImagePanel imgPanel = new ImagePanel(logo, theme);
         imgPanel.setPreferredSize(new Dimension(logo.getWidth(null), logo.getHeight(null)));
-
         logoGetter = new Images("magnifyGlass", theme, "UIimage");
         RoundedButton magButton = new RoundButton(logoGetter.getImage(), theme);
         searchButton = new VicFormatter(magButton, buffDistance);
 
         //textPanel = new VicTextPanel(theme, 30, true, 5, 200, 120);
         textPNL = new TextCanvas(theme, 22, true);
-        VicFormatter textFormat = new VicFormatter(textPNL, 5);
+        //VicFormatter textFormat = new VicFormatter(textPNL, 5);
         //textPNL.setPreferredSize(new Dimension(1, 30));
         round = new RoundedPanel(theme);
-        round.setPreferredSize(new Dimension(1, 1));
-        round.add(textFormat.getPanel());
-        round.setMaximumSize(new Dimension(7000, 1000));
+        round.add(textPNL);
+        textPNL.setBorder(new BevelBorder(3,theme.getCurrentForegroundColor().main(), theme.getCurrentForegroundColor().main()));
+        //round.setMaximumSize(new Dimension(7000, 1000));
         SwingUtilities.invokeLater(() -> textPNL.setCaretPosition(0));
 
-        textPNL.setColumnWidths(round.getWidth());
+        textPNL.setColumnWidths(10);
 
         searchPanel.add(imgPanel); // Adding the image panel to the search panel
         searchPanel.add(Box.createRigidArea(new Dimension(100, 1)));
         searchPanel.add(searchButton.getPanel());
         searchPanel.add(round);
-        searchPanel.add(Box.createRigidArea(new Dimension(100, 1)));
+        //searchPanel.add(Box.createRigidArea(new Dimension(100, 1)));
+
+        round.setSize(new Dimension(500, 50));
+        round.setMaximumSize(new Dimension(500, 50));
 
         topPanel = new VicFormatter(searchPanel, buffDistance);
 

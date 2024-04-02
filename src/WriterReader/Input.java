@@ -1,5 +1,6 @@
 package src.WriterReader;
 
+import src.Questions.Questions;
 import src.Students.Victim;
 //import src.Students.StudentFunctions.Names;
 import src.UIElements.Colors.CurrentUITheme;
@@ -8,6 +9,8 @@ import src.Students.StudentFunctions.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class Input {
@@ -55,22 +58,54 @@ public class Input {
         return students;
     }
 
-    public static CurrentUITheme readUIThemeFile(String filename) throws FileNotFoundException{
+    public static CurrentUITheme readUIThemeFile(String filename) throws FileNotFoundException {
         String foreground = "";
         String background = "";
         Scanner scanner = new Scanner(new File(filename));
 
-        while (scanner.hasNextLine()){
+        while (scanner.hasNextLine()) {
             String line = scanner.nextLine().trim();
 
-            if (line.startsWith("Foreground:")){
+            if (line.startsWith("Foreground:")) {
                 foreground = line.substring(line.indexOf(":") + 1).trim();
-            }else if (line.startsWith("Background:")){
+            } else if (line.startsWith("Background:")) {
                 background = line.substring(line.indexOf(":") + 1).trim();
             }
         }
         scanner.close();
 
         return new CurrentUITheme(foreground, background);
+    }
+
+    public class QuestionLoader {
+        private Queue<Questions> questionsQueue = new LinkedList<>();
+
+        public void loadQuestions(String fileName) throws FileNotFoundException {
+            Scanner scanner = new Scanner(new File(fileName));
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine().trim();
+
+                if (line.startsWith("Question:")) {
+                    String questionText = line.substring(9).trim();
+                    String answer = scanner.nextLine().substring(7).trim();
+                    ArrayList<String> optionsList = new ArrayList<>();
+
+                    for (int i = 0; i < 4; i++) {
+                        line = scanner.nextLine().trim();
+                        if (line.startsWith("*")) {
+                            optionsList.add(line.substring(1));
+                        } else {
+                            break;
+                        }
+                    }
+
+                    String[] options = optionsList.toArray(new String[0]);
+                    Questions question = new Questions(questionText, options, answer);
+                    questionsQueue.add(question);
+                }
+            }
+            scanner.close();
+        }
+
     }
 }

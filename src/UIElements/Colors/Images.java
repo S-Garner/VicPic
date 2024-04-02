@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Images {
@@ -25,28 +26,27 @@ public class Images {
         this.addBuffer = addBuffer;
 
         try {
-            if (imageCon.alter) {
-                image = ImageIO.read(new File(this.imagePath));
-                processImage(theme.getCurrentForegroundColor().main());
+            File file = new File(this.imagePath);
+            if (file.exists()) {
+                image = ImageIO.read(file);
             } else {
-                if (imageType.equals("CustomImage")) {
-                    image = ImageIO.read(new File(this.imagePath));
-                    //image = ImageIO.read(new File(photoPath + "null.png"));
-                } else {
-                    image = ImageIO.read(new File(this.imagePath));
-                }
+                System.out.println("File not found: " + this.imagePath + ", loading default image.");
+                image = ImageIO.read(new File(photoPath + "null.png"));
             }
 
-            if (image != null && imageCon.reSize) {
-                if (image.getWidth() > 100 || image.getHeight() > 100) {
+            if (image != null) {
+                if (imageCon.alter) {
+                    processImage(theme.getCurrentForegroundColor().main());
+                }
+
+                if (imageCon.reSize && (image.getWidth() > 100 || image.getHeight() > 100)) {
                     image = resizeImage(image, 100, 100);
                 }
-            }
 
-            if (image != null && imageCon.crop) {
-                image = cropImageToSize(image, 200, 200, imageCon);
+                if (imageCon.crop) {
+                    image = cropImageToSize(image, 200, 200, imageCon);
+                }
             }
-
         } catch (IOException e) {
             e.printStackTrace();
             image = null;
