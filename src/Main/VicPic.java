@@ -4,6 +4,7 @@ import src.IOClasses.SimpleInstrHolder;
 import src.Interfaces.SimpleInstructions;
 import src.Main.UI.Format.VicFormatter;
 import src.Main.UI.Panels.*;
+import src.Questions.Questions;
 import src.Students.Victim;
 import src.UIElements.Buttons.RoundButton;
 import src.UIElements.Colors.*;
@@ -20,6 +21,7 @@ import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Queue;
 
 import static src.Main.Assets.filePaths.*;
 import static src.UIElements.Colors.ImageResizer.resize;
@@ -72,6 +74,7 @@ public class VicPic {
         PlayerDisplayPanel playDisplayPanel = new PlayerDisplayPanel(theme, vics);
         JPanel anotherTwo = new JPanel();
         CurrentUserStats stats = new CurrentUserStats(theme);
+        stats.setBackground(null);
         anotherTwo.add(playDisplayPanel.getTopPanel());
         JPanel anotherFour = new JPanel();
         anotherFour.setBackground(null);
@@ -82,16 +85,42 @@ public class VicPic {
 
         anotherThree.add(anotherTwo);
         anotherTwo.setBackground(null);
+        anotherTwo.setOpaque(false);
         anotherThree.add(anotherOne);
         anotherThree.add(anotherFour);
         anotherThree.setBackground(null);
-        anotherThree.setBackground(null);
+        anotherThree.setOpaque(false);
 
         psPanelandPlayerDisplayHolder.add(anotherThree);
         psPanelandPlayerDisplayHolder.setBackground(null);
+        psPanelandPlayerDisplayHolder.setOpaque(false);
+
+        QandAPanel testQA = new QandAPanel(theme);
+        VicFormatter testQAHolder = new VicFormatter(testQA.getPanel(), 5);
+
+        ArrayList<Questions> questions;
+
+        try {
+            questions = Input.readQuestionsFile("./src/Main/SaveFiles/Questions.txt");
+            testQA.setQuestions(questions);
+            } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        testQA.setDisplayText("This is a very long string to test if seperator is working properly");
 
 
-        highScores.getFormat().setPreferredSize(new Dimension(200, 300));
+
+        //testQA.getPanel().setPreferredSize(new Dimension(600, 600));
+
+
+        //highScores.getFormat().setPreferredSize(new Dimension(200, 300));
+        RoundedPanel highScoreAndQuestionHolder = new RoundedPanel(theme);
+
+        highScoreAndQuestionHolder.setLayout(new BorderLayout());
+
+        highScoreAndQuestionHolder.setPreferredSize(new Dimension(800, 900));
+
         //DisplayPlayer player = new DisplayPlayer(images, theme);
         //PlayerPanel firstPL = new PlayerPanel(theme);
         //firstPL.getPlayerDisplay().
@@ -103,7 +132,12 @@ public class VicPic {
         //VicFormatter firstPLFirst = new VicFormatter(firstPL, 5);
         //VicFormatter secondPLFirst = new VicFormatter(secondPL, 5);
         round.add(psPanelandPlayerDisplayHolder);
-        round.add(highScores.getFormat());
+        round.setBackground(null);
+        highScoreAndQuestionHolder.add(testQAHolder.getPanel(), BorderLayout.NORTH);
+        highScoreAndQuestionHolder.add(highScores.getFormat(), BorderLayout.CENTER);
+        highScores.getFormat().setPreferredSize(new Dimension(800, 100));
+        round.add(highScoreAndQuestionHolder);
+        highScoreAndQuestionHolder.setBackground(null);
         //round.add(playerhOld.getPanel());
         //round.add(play2.getPanel());
         //round.add(firstPLFirst.getPanel());
@@ -148,7 +182,7 @@ public class VicPic {
         };
 
         SimpleInstrHolder holder = new SimpleInstrHolder(openFrame);
-        button.addActionListener(e -> holder.execute());
+        //button.addActionListener(e -> holder.execute());
 
         frame.pack();
         frame.setVisible(true);

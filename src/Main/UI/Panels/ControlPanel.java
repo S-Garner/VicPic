@@ -27,55 +27,52 @@ public class ControlPanel {
         map = new HashMap<>();
 
         controlPanel = new RoundedPanel(theme);
-        map.put("csControlPanel", controlPanel);
+        map.put("csButton1", controlPanel);
 
-        //controlPanel.setMaximumSize(new Dimension(30, 175));
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
         int buffDistance = 5;
         Images imageGetter;
 
-        //Image image = null;
-
         imageGetter = new Images("plus", theme, "UIimage");
         RoundButton addVic = new RoundButton(imageGetter.getImage(), theme);
         addVic.setToolTipText("Add Victim");
-        map.put("csAddVic", addVic);
+        map.put("csButton2", addVic);
         addVictim = new VicFormatter(addVic, buffDistance);
 
         imageGetter = new Images("floppy", theme, "UIimage");
         RoundButton saveV = new RoundButton(imageGetter.getImage(), theme);
         saveV.setToolTipText("Save");
-        map.put("csSaveV", saveV);
+        map.put("csButton3", saveV);
         save = new VicFormatter(saveV, buffDistance);
 
         imageGetter = new Images("X", theme, "UIimage");
         RoundButton delVic = new RoundButton(imageGetter.getImage(), theme);
         delVic.setToolTipText("Delete Victim");
-        map.put("csDelVic", delVic);
+        map.put("csButton3", delVic);
         deleteVictim = new VicFormatter(delVic, buffDistance);
 
         imageGetter = new Images("person", theme, "UIimage");
         RoundButton edtVic = new RoundButton(imageGetter.getImage(), theme);
         edtVic.setToolTipText("Edit Victim");
-        map.put("edtVic", edtVic);
+        map.put("csButton4", edtVic);
         editVictim = new VicFormatter(edtVic, buffDistance);
 
         imageGetter = new Images("people", theme, "UIimage");
         RoundButton edtPpl = new RoundButton(imageGetter.getImage(), theme);
         edtPpl.setToolTipText("Edit Class");
-        map.put("csEdtPpl", edtPpl);
+        map.put("csButton5", edtPpl);
         editClass = new VicFormatter(edtPpl, buffDistance);
 
         imageGetter = new Images("gear", theme, "UIimage");
         RoundButton settingsBt = new RoundButton(imageGetter.getImage(), theme);
         settingsBt.setToolTipText("Settings");
-        map.put("csSettings", settingsBt);
+        map.put("csButton6", settingsBt);
         settings = new VicFormatter(settingsBt, buffDistance);
 
         imageGetter = new Images("door", theme, "UIimage");
         RoundButton ext = new RoundButton(imageGetter.getImage(), theme);
         ext.setToolTipText("Exit");
-        map.put("csExit", ext);
+        map.put("csButton7", ext);
         exit = new VicFormatter(ext, buffDistance);
 
         JPanel test = new JPanel();

@@ -77,35 +77,38 @@ public class Input {
         return new CurrentUITheme(foreground, background);
     }
 
-    public class QuestionLoader {
-        private Queue<Questions> questionsQueue = new LinkedList<>();
+    public static ArrayList<Questions> readQuestionsFile(String fileName) throws FileNotFoundException {
+        ArrayList<Questions> questionsList = new ArrayList<>();
+        Scanner scanner = new Scanner(new File(fileName));
 
-        public void loadQuestions(String fileName) throws FileNotFoundException {
-            Scanner scanner = new Scanner(new File(fileName));
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine().trim();
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine().trim();
 
-                if (line.startsWith("Question:")) {
-                    String questionText = line.substring(9).trim();
-                    String answer = scanner.nextLine().substring(7).trim();
-                    ArrayList<String> optionsList = new ArrayList<>();
+            if (line.startsWith("Question:")) {
+                String questionText = line.substring(9).trim();
+                String answer = scanner.nextLine().trim().substring(7);
+                ArrayList<String> optionsList = new ArrayList<>();
 
-                    for (int i = 0; i < 4; i++) {
+                for (int i = 0; i < 4; i++) {
+                    if (scanner.hasNextLine()) {
                         line = scanner.nextLine().trim();
                         if (line.startsWith("*")) {
                             optionsList.add(line.substring(1));
                         } else {
+                            // If it's not an option line, we should break
                             break;
                         }
                     }
-
-                    String[] options = optionsList.toArray(new String[0]);
-                    Questions question = new Questions(questionText, options, answer);
-                    questionsQueue.add(question);
                 }
+
+                String[] options = optionsList.toArray(new String[0]);
+                Questions question = new Questions(questionText, options, answer);
+                questionsList.add(question);
             }
-            scanner.close();
         }
 
+        scanner.close();
+        return questionsList;
     }
+
 }

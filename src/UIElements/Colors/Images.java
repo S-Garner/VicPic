@@ -1,5 +1,7 @@
 package src.UIElements.Colors;
 
+import src.Main.Assets.filePaths;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -11,45 +13,57 @@ public class Images {
     private BufferedImage image;
     private String imageSelect;
     private String imagePath;
-    private String assetPath = "./src/Main/Assets/UIAssets/";
-    private String photoPath = "./src/Main/Assets/VicPhotos/";
-    private String extension = ".png";
-    private boolean addBuffer;
+    private String assetPath;
+    private String photoPath;
+    private final String extension = ".png";
 
     public Images(String imageSelect, CurrentUITheme theme, String imageType) {
-        if (imageType.equals("CustomImage")) {
-            assetPath = photoPath;
-        }
-        ImageConfig imageCon = new ImageConfig(imageType);
         this.imageSelect = imageSelect.toLowerCase();
+        this.assetPath = filePaths.UiImgPath;
+        this.photoPath = filePaths.photoPath;
+
+        // Determine the correct path based on the image type
+        if (imageType.equals("CustomImage")) {
+            this.assetPath = this.photoPath;
+        }
+
+        // Construct the full image path
         this.imagePath = this.assetPath + this.imageSelect + this.extension;
-        this.addBuffer = addBuffer;
+
+        ImageConfig imageCon = new ImageConfig(imageType);
 
         try {
             File file = new File(this.imagePath);
             if (file.exists()) {
-                image = ImageIO.read(file);
+                this.image = ImageIO.read(file);
             } else {
-                System.out.println("File not found: " + this.imagePath + ", loading default image.");
-                image = ImageIO.read(new File(photoPath + "null.png"));
+                // Load default image if the specified one is not found
+                File defaultImageFile = new File(filePaths.UiImgPath + "null" + this.extension);
+                if (defaultImageFile.exists()) {
+                    this.image = ImageIO.read(defaultImageFile);
+                } else {
+                    // Create an empty placeholder if even the default image is missing
+                    this.image = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
+                }
             }
 
-            if (image != null) {
+            // Apply image transformations if needed
+            if (this.image != null) {
                 if (imageCon.alter) {
                     processImage(theme.getCurrentForegroundColor().main());
                 }
 
-                if (imageCon.reSize && (image.getWidth() > 100 || image.getHeight() > 100)) {
-                    image = resizeImage(image, 100, 100);
+                if (imageCon.reSize && (this.image.getWidth() > 100 || this.image.getHeight() > 100)) {
+                    this.image = resizeImage(this.image, 100, 100);
                 }
 
                 if (imageCon.crop) {
-                    image = cropImageToSize(image, 200, 200, imageCon);
+                    this.image = cropImageToSize(this.image, 200, 200, imageCon);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
-            image = null;
+            this.image = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
         }
     }
 

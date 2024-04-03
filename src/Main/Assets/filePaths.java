@@ -6,6 +6,7 @@ public class filePaths {
 
     public static String vicList = "ListOfVictims.txt";
     public static String uiTheme = "UITheme.txt";
+    public static String questList = "Questions.txt";
 
     public static String saveFilePath = "./src/Main/SaveFiles/";
 

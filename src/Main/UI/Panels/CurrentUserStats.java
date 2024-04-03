@@ -60,14 +60,14 @@ public class CurrentUserStats extends JPanel{
         map = new HashMap<>();
 
         int buffDistance = 3;
-        int fontSize = 15;
+        int fontSize = 18;
         boolean unEditable = false;
 
         theme = inTheme;
         inverse = new CurrentUITheme(theme.getForegroundString(), theme.getBackgroundString());
 
         mainPanel = new RoundedPanel(theme);
-        mainPanel.setPreferredSize(new Dimension(720, 110));
+        mainPanel.setPreferredSize(new Dimension(720, 125));
         //mainPanel.setPreferredSize(new Dimension(900, 75));
         mainPanelFormat = new VicFormatter<>(mainPanel, buffDistance);
 
@@ -90,6 +90,7 @@ public class CurrentUserStats extends JPanel{
         fullName.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
         fullName.setText("Test");
         fullName.setSize(new Dimension(90, 1));
+        map.put("stat1", fullName);
         //fullName.setText(firstName + " " + lastName);
         fullNamePnl.add(fullNameLbl);
         fullNamePnl.add(fullName);
@@ -105,7 +106,7 @@ public class CurrentUserStats extends JPanel{
         nickNameMain.setPreferredSize(new Dimension(150, 1));
         nickNameMain.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
         nickNameMain.setText("Test");
-        //nickNameMain.setText(nickName);
+        map.put("stat2", nickNameMain);
         nickNamePnl.add(nickNameLbl);
         nickNamePnl.add(nickNameMain);
 
@@ -128,6 +129,7 @@ public class CurrentUserStats extends JPanel{
         pointsMain.setPreferredSize(new Dimension(30, 1));
         pointsMain.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
         pointsMain.setText("Test");
+        map.put("stat3", pointsMain);
         //pointsMain.setText(points);
         pointsPnl.add(pointsLbl);
         pointsPnl.add(pointsMain);
@@ -143,8 +145,9 @@ public class CurrentUserStats extends JPanel{
         absentMain.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
         absentMain.setSize(new Dimension(200, 10));
         absentMain.setText(absents);
+        map.put("stat4", absentMain);
         absentPnl.add(absentLbl);
-        nickNamePnl.add(absentMain);
+        absentPnl.add(absentMain);
 
         JPanel ansAndTimePickedPanel = new JPanel();
         ansAndTimePickedPanel.setLayout(new BoxLayout(ansAndTimePickedPanel, BoxLayout.X_AXIS));
@@ -159,6 +162,7 @@ public class CurrentUserStats extends JPanel{
         answeredMain.setPreferredSize(new Dimension(170, 1));
         answeredMain.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
         answeredMain.setText(answered);
+        map.put("stat5", answeredMain);
         answeredPanel.add(answeredLbl);
         answeredPanel.add(answeredMain);
 
@@ -172,6 +176,7 @@ public class CurrentUserStats extends JPanel{
         timesPickedMain.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
         timesPickedMain.setPreferredSize(new Dimension(200, 1));
         timesPickedMain.setText(timesPicked);
+        map.put("stat6", timesPickedMain);
         timesPickedPanel.add(timesPickLbl);
         timesPickedPanel.add(timesPickedMain);
 
@@ -194,6 +199,7 @@ public class CurrentUserStats extends JPanel{
         passedMain.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
         passedMain.setPreferredSize(new Dimension(170, 1));
         passedMain.setText(passed);
+        map.put("stat7", passedMain);
         passedPanel.add(passedLbl);
         passedPanel.add(passedMain);
 
@@ -207,6 +213,7 @@ public class CurrentUserStats extends JPanel{
         influenceMain.setBorder(new BevelBorder(1,Color.BLACK, Color.BLACK));
         influenceMain.setPreferredSize(new Dimension(200, 1));
         influenceMain.setText(influence);
+        map.put("stat8", influenceMain);
         influencePanel.add(inflLbl);
         influencePanel.add(influenceMain);
 
@@ -220,6 +227,8 @@ public class CurrentUserStats extends JPanel{
 
         mainPanel.add(contentFrame);
         mainPanel.setBackground(null);
+
+        map.put("statMain", this);
 
     }
 
@@ -259,6 +268,10 @@ public class CurrentUserStats extends JPanel{
 
     public BufferedPanel getMainPanel(){
         return mainPanelFormat.getPanel();
+    }
+
+    public HashMap<String, JComponent> getMap(){
+        return map;
     }
 
 }

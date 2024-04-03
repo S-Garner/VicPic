@@ -259,4 +259,8 @@ public class PlayerDisplayPanel {
         inVic.setNumPicked(1);
     }
 
+    public ArrayList<PlayerPanel> getPlayers(){
+        return players;
+    }
+
 }
