@@ -8,23 +8,16 @@ import src.Questions.Questions;
 import src.Students.Victim;
 import src.UIElements.Buttons.RoundButton;
 import src.UIElements.Colors.*;
-import src.UIElements.Panels.BufferedPanel;
-import src.UIElements.Panels.DisplayPlayer;
-import src.UIElements.Panels.PlayerPanel;
 import src.UIElements.Panels.RoundedPanel;
 import src.WriterReader.Input;
-import src.WriterReader.randomizeImages;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Queue;
 
 import static src.Main.Assets.filePaths.*;
-import static src.UIElements.Colors.ImageResizer.resize;
 
 public class VicPic {
     public static void main(String[] args) throws FileNotFoundException {
@@ -52,7 +45,7 @@ public class VicPic {
         String filePath = saveFilePath + vicList;
         vics = Input.readStudentFile(filePath);
 
-        //randomizeImages randomImg = new randomizeImages(vics, photoPath);
+        //RandomizeImages randomImg = new RandomizeImages(vics, photoPath);
 
         //randomImg.assignPhotosToVictims();
 

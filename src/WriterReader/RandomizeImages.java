@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class randomizeImages {
+public class RandomizeImages {
 
     private ArrayList<Victim> victims;
     private File photoDirectory;
     private List<File> availablePhotos;
 
-    public randomizeImages(ArrayList<Victim> victims, String photoDirectoryPath) {
+    public RandomizeImages(ArrayList<Victim> victims, String photoDirectoryPath) {
         this.victims = victims;
         this.photoDirectory = new File(photoDirectoryPath);
         this.availablePhotos = new ArrayList<>();

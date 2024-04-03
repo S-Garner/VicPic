@@ -29,7 +29,7 @@ public class Input {
                     names.setFirstName(line.substring(11).trim());
                 } else if (line.startsWith("Last name:")) {
                     names.setLastName(line.substring(10).trim());
-                } else if (line.startsWith("Nickname:")) { // Fixed the key to match your example
+                } else if (line.startsWith("Nickname:")) {
                     names.setNickName(line.substring(9).trim());
                 } else if (line.startsWith("Points:")) {
                     points = Integer.parseInt(line.substring(7).trim());

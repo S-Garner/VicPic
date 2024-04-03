@@ -1,18 +1,14 @@
 package src.UIElements.Panels;
 
 import src.Main.UI.Format.VicFormatter;
-import src.Main.VictimManager;
-import src.Questions.Questions;
 import src.UIElements.Buttons.HeldButton;
 import src.UIElements.Colors.CurrentUITheme;
-import src.UIElements.Colors.Images;
 import src.UIElements.TextCanvas;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
 
-public class QuestionOption extends JPanel {
+public class QuestionAndButton extends JPanel {
     private int fontSize = 22;
     private boolean notEdit = false;
 
@@ -29,7 +25,7 @@ public class QuestionOption extends JPanel {
     VicFormatter canvasFormat;
     VicFormatter buttonFormat;
 
-    public QuestionOption(String inOption, CurrentUITheme theme){
+    public QuestionAndButton(String inOption, CurrentUITheme theme){
 
 
         optionText = new String(inOption);

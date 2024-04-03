@@ -5,7 +5,7 @@ import src.Questions.Questions;
 import src.UIElements.Buttons.RoundButton;
 import src.UIElements.Colors.CurrentUITheme;
 import src.UIElements.Colors.Images;
-import src.UIElements.Panels.QuestionOption;
+import src.UIElements.Panels.QuestionAndButton;
 import src.UIElements.Panels.RoundedPanel;
 import src.UIElements.TextCanvas;
 
@@ -35,7 +35,7 @@ public class QandAPanel {
 
     // An array for the options
     // There can be <=4 possible
-    QuestionOption[] options;
+    QuestionAndButton[] options;
 
     // Where all the questions are
     private Queue<Questions> questionsQueue;
@@ -206,8 +206,8 @@ public class QandAPanel {
 
     private void checkAnswer(Questions currentQuestion) {
         for (Component component : optionHolder.getComponents()) {
-            if (component instanceof QuestionOption) {
-                QuestionOption option = (QuestionOption) component;
+            if (component instanceof QuestionAndButton) {
+                QuestionAndButton option = (QuestionAndButton) component;
                 if (option.getButtonHeld()) {
                     boolean isCorrect = option.isCorrect(currentQuestion.getAnswer());
                     // Update UI or logic based on whether the answer is correct
@@ -228,7 +228,7 @@ public class QandAPanel {
         // Clear existing options in the optionHolder
         optionHolder.removeAll();
         for (String option : currentQuestion.getOptions()) {
-            QuestionOption optionPanel = new QuestionOption(option, theme);
+            QuestionAndButton optionPanel = new QuestionAndButton(option, theme);
             setter.add(optionPanel);
             // Add listeners or actions to optionPanel here if needed
         }
@@ -252,7 +252,7 @@ public class QandAPanel {
         // Clear existing options in the optionHolder
         optionHolder.removeAll();
         for (String option : previousQuestion.getOptions()) {
-            QuestionOption optionPanel = new QuestionOption(option, theme);
+            QuestionAndButton optionPanel = new QuestionAndButton(option, theme);
             setter.add(optionPanel); // Make sure this should be 'setter' or 'optionHolder'
             // Add listeners or actions to optionPanel here if needed
         }
