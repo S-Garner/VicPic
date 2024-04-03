@@ -217,48 +217,52 @@ public class QandAPanel {
     }
 
     private void displayNextQuestion() {
-        if (questionsQueue.isEmpty()) {
+        if (questionsQueue.isEmpty() && displayedQuestions.isEmpty()) {
             System.out.println("No more questions available.");
             return;
         }
 
-        Questions currentQuestion = questionsQueue.poll(); // Retrieve and remove the head of the queue
-        setDisplayText(currentQuestion.getQuestion());
-
-        // Clear existing options in the optionHolder
-        optionHolder.removeAll();
-        for (String option : currentQuestion.getOptions()) {
-            QuestionAndButton optionPanel = new QuestionAndButton(option, theme);
-            setter.add(optionPanel);
-            // Add listeners or actions to optionPanel here if needed
+        // Only pull from queue if we're not going back in history
+        Questions currentQuestion;
+        if (!displayedQuestions.isEmpty() && displayedQuestions.peek() == questionsQueue.peek()) {
+            displayedQuestions.pop(); // Remove current question to get to the previous one in history
         }
 
-        optionHolder.revalidate();
-        optionHolder.repaint();
+        if (!questionsQueue.isEmpty()) {
+            currentQuestion = questionsQueue.poll(); // Get next question from the queue
+            displayedQuestions.push(currentQuestion); // Push it onto the stack for history tracking
+        } else {
+            currentQuestion = displayedQuestions.peek();
+        }
+
+        displayQuestion(currentQuestion);
     }
 
     private void displayPreviousQuestion() {
-        if (displayedQuestions.size() <= 1) { // Check if there is a previous question to display
+        if (displayedQuestions.size() <= 1) {
             System.out.println("No previous question available.");
             return;
         }
 
-        // Current question needs to be popped as we already are on this question
-        displayedQuestions.pop();
+        displayedQuestions.pop(); // Remove current question
+        Questions previousQuestion = displayedQuestions.peek(); // Get the previous question
 
-        Questions previousQuestion = displayedQuestions.peek(); // Peek the previous question without removing
-        setDisplayText(previousQuestion.getQuestion());
+        displayQuestion(previousQuestion);
+    }
+
+    private void displayQuestion(Questions question) {
+        setDisplayText(question.getQuestion());
 
         // Clear existing options in the optionHolder
-        optionHolder.removeAll();
-        for (String option : previousQuestion.getOptions()) {
+        setter.removeAll(); // Make sure this is the correct panel to use
+        for (String option : question.getOptions()) {
             QuestionAndButton optionPanel = new QuestionAndButton(option, theme);
-            setter.add(optionPanel); // Make sure this should be 'setter' or 'optionHolder'
-            // Add listeners or actions to optionPanel here if needed
+            setter.add(optionPanel); // Ensure this is the panel where options are shown
         }
 
         optionHolder.revalidate();
         optionHolder.repaint();
     }
+
 
 }

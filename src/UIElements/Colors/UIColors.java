@@ -15,6 +15,7 @@ public class UIColors {
     final static ColorScheme TEAMRED = new ColorScheme(Color.decode("#FD1313"), Color.decode("#AF0303"), Color.decode("#6D0101"));
     final static ColorScheme TEAMGREEN = new ColorScheme(Color.decode("#00FF00"), Color.decode("#03C102"), Color.decode("#038602"));
     final static ColorScheme TEAMYELLOW = new ColorScheme(Color.decode("#FFFF00"), Color.decode("#E1E004"), Color.decode("#C1C002"));
+    final static ColorScheme MANDARIN = new ColorScheme(Color.decode("#EB813B"), Color.decode("#D66F2B"), Color.decode("#B55718"));
 
 
 
