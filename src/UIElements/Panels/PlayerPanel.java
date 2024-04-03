@@ -1,6 +1,5 @@
 package src.UIElements.Panels;
 
-import src.Main.UI.Buttons.VicButtons;
 import src.Main.UI.Format.VicFormatter;
 import src.Students.Victim;
 import src.UIElements.Buttons.RoundButton;
