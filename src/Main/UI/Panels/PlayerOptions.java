@@ -42,42 +42,42 @@ public class PlayerOptions {
 
         imageGetter = new Images("plus", theme, "UIimage");
         RoundButton addPoints = new RoundButton(imageGetter.getImage(), theme);
-        map.put("poAddPoints", addPoints);
+        map.put("poButton1", addPoints);
         plusButton = new VicFormatter(addPoints, buffDistance);
 
         imageGetter = new Images("dash", theme, "UIimage");
         RoundButton removePoints = new RoundButton(imageGetter.getImage(), theme);
-        map.put("poRemovePoints", removePoints);
+        map.put("poButton2", removePoints);
         minusButton = new VicFormatter(removePoints, buffDistance);
 
         imageGetter = new Images("5", theme, "UIimage");
         HeldButton fiveMultButton = new HeldButton(imageGetter.getImage(), theme);
-        map.put("pofiveMultButton", fiveMultButton);
+        map.put("poButton3", fiveMultButton);
         fiveMultiplyButton = new VicFormatter(fiveMultButton, buffDistance);
 
         imageGetter = new Images("robber", theme, "UIimage");
         HeldButton JailButton = new HeldButton(imageGetter.getImage(), theme);
-        map.put("poJailButton", removePoints);
+        map.put("poButton4", removePoints);
         jailButton = new VicFormatter(JailButton, buffDistance);
 
         imageGetter = new Images("scales", theme, "UIimage");
         RoundButton scalesButton = new RoundButton(imageGetter.getImage(), theme);
-        map.put("poScalesButton", removePoints);
+        map.put("poButton5", removePoints);
         fiftyFifButton = new VicFormatter(scalesButton, buffDistance);
 
         imageGetter = new Images("phone", theme, "UIimage");
         HeldButton phoneButton = new HeldButton(imageGetter.getImage(), theme);
-        map.put("poPhoneButton", phoneButton);
+        map.put("poButton6", phoneButton);
         phoneFriendButton = new VicFormatter(phoneButton, buffDistance);
 
         imageGetter = new Images("noSign", theme, "UIimage");
         HeldButton AbsentButton = new HeldButton(imageGetter.getImage(), theme);
-        map.put("poAbsentButton", AbsentButton);
+        map.put("poButton7", AbsentButton);
         absentButton = new VicFormatter(AbsentButton, buffDistance);
 
         imageGetter = new Images("pass", theme, "UIimage");
         HeldButton PassButton = new HeldButton(imageGetter.getImage(), theme);
-        map.put("poPassButton", PassButton);
+        map.put("poButton8", PassButton);
         passButton = new VicFormatter(PassButton, buffDistance);
 
         TextCanvas textPNL = new TextCanvas(theme, 19, true);
@@ -85,7 +85,7 @@ public class PlayerOptions {
         textPNL.setBackground(null);
         textPNL.setOpaque(false);
         textPNL.setColumnWidths(3);
-        map.put("poTextPanel", textPNL);
+        map.put("poTextCanvas", textPNL);
         textPNL.setPreferredSize(new Dimension(1, 30));
         RoundedPanel round = new RoundedPanel(theme);
         round.setPreferredSize(new Dimension(65, 48));
@@ -93,14 +93,12 @@ public class PlayerOptions {
         int middle = textPNL.getWidth() / 2;
         textPNL.setCaretPosition(middle);
         VicFormatter roundFormat = new VicFormatter(round, buffDistance);
-        //SwingUtilities.invokeLater(() -> textPNL.setCaretPosition(0));
 
         imageGetter = new Images("uparrow", theme, "UIimage");
         RoundButton SendButton = new RoundButton(imageGetter.getImage(), theme);
-        map.put("poSendButton", PassButton);
+        map.put("poButton9", PassButton);
         sendButton = new VicFormatter(SendButton, buffDistance);
 
-        //playerOptions.add(logoz.getPanel());
         playerOptions.add(sendButton.getPanel());
         playerOptions.add(round);
         playerOptions.add(plusButton.getPanel());

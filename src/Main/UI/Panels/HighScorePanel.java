@@ -8,6 +8,7 @@ import src.UIElements.TextCanvas;
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Map;
 
 public class HighScorePanel {
     private HashMap<String, JComponent> map;
@@ -52,7 +53,7 @@ public class HighScorePanel {
 
         Highscores = new TextCanvas(theme, fontSize, false);
         Highscores.setText("      ~ HIGHSCORES ~");
-        map.put("hsHighscores", Highscores);
+        map.put("hsLabelMain", Highscores);
 
         ScoreContainer = new JPanel();
         ScoreContainer.setLayout(new BoxLayout(ScoreContainer, BoxLayout.Y_AXIS));
@@ -87,6 +88,7 @@ public class HighScorePanel {
         No1.setText("Test1");
         panel1.setSize(new Dimension(200, 10));
         No1Form = new VicFormatter(panel1, 2);
+        map.put("hsTextPane1", No1);
 
         RoundedPanel panel2 = new RoundedPanel(theme);
         panel2.setLayout(new BoxLayout(panel2, BoxLayout.X_AXIS));
@@ -97,6 +99,7 @@ public class HighScorePanel {
         No2.setText("Test2");
         panel2.setSize(new Dimension(200, 10));
         No2Form = new VicFormatter(panel2, 2);
+        map.put("hsTextPane2", No2);
 
         RoundedPanel panel3 = new RoundedPanel(theme);
         panel3.setLayout(new BoxLayout(panel3, BoxLayout.X_AXIS));
@@ -107,6 +110,7 @@ public class HighScorePanel {
         No3.setText("Test3");
         panel3.setSize(new Dimension(200, 10));
         No3Form = new VicFormatter(panel3, 2);
+        map.put("hsTextPane3", No3);
 
         RoundedPanel panel4 = new RoundedPanel(theme);
         panel4.setLayout(new BoxLayout(panel4, BoxLayout.X_AXIS));
@@ -117,6 +121,7 @@ public class HighScorePanel {
         No4.setText("Test4");
         panel4.setSize(new Dimension(200, 10));
         No4Form = new VicFormatter(panel4, 2);
+        map.put("hsTextPane4", No4);
 
         RoundedPanel panel5 = new RoundedPanel(theme);
         panel5.setLayout(new BoxLayout(panel5, BoxLayout.X_AXIS));
@@ -127,6 +132,7 @@ public class HighScorePanel {
         No5.setText("Test5");
         panel5.setSize(new Dimension(200, 10));
         No5Form = new VicFormatter(panel5, 2);
+        map.put("hsTextPane5", No5);
 
         ScoreContainer.add(No1Form.getPanel());
         No1Form.getPanel().setPreferredSize(new Dimension(200, 170));
@@ -164,5 +170,9 @@ public class HighScorePanel {
     }
 
     public JPanel getFormat() { return scoreFormat.getPanel(); }
+
+    public Map<String, JComponent> getMap(){
+        return map;
+    }
 
 }
