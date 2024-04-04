@@ -164,6 +164,7 @@ public class QandAPanel {
         optionHolder.setPreferredSize(new Dimension(700, 200));
 
         optionHolder.add(setter);
+        optionHolder.setBackground(theme.getCurrentBackgroundColor().main());
 
         buttonPanel.setPreferredSize(new Dimension(800, 100));
 
@@ -220,6 +221,9 @@ public class QandAPanel {
                     answerChecked = true;
 
                     // Update the button appearance based on whether it is correct
+                    if(isCorrect){
+
+                    }
                     button.setBackground(isCorrect ? Color.GREEN : Color.RED);
 
                     // Optional: display a message or update the score
@@ -238,6 +242,7 @@ public class QandAPanel {
 
     private void displayNextQuestion() {
         if (questionsQueue.isEmpty() && displayedQuestions.isEmpty()) {
+            JOptionPane.showMessageDialog(null,"No more questions available");
             System.out.println("No more questions available.");
             return;
         }
@@ -277,6 +282,7 @@ public class QandAPanel {
         setter.removeAll(); // Make sure this is the correct panel to use
         for (String option : question.getOptions()) {
             QuestionAndButton optionPanel = new QuestionAndButton(option, theme);
+            optionPanel.setBackground(theme.getCurrentBackgroundColor().main());
             optionPanel.setText(option);
             setter.add(optionPanel); // Ensure this is the panel where options are shown
         }

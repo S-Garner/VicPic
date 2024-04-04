@@ -131,7 +131,7 @@ public class PlayerDisplayPanel {
         removeButton.addActionListener(e -> removePlayerPanel(newPlayer));
 
         RoundButton randButton = newPlayer.getRandomButton();
-        final PlayerPanel currentNewPlayer = newPlayer;  // Create a final reference for use in the lambda
+        final PlayerPanel currentNewPlayer = newPlayer;
         randButton.addActionListener(e -> {
             Victim randomVictim;
             do {

@@ -37,13 +37,13 @@ public class QuestionAndButton extends JPanel {
         VicFormatter textFormat = new VicFormatter(optionCanvas, 5);
         textFormat.getPanel().setBackground(theme.getCurrentBackgroundColor().main());
         VicFormatter buttonFormat = new VicFormatter(optionButton, 5);
-        buttonFormat.getPanel().setBackground(null);
+        buttonFormat.getPanel().setBackground(theme.getCurrentBackgroundColor().main());
 
         //optionCanvas.setText("Test");
         //optionCanvas.setText(inOption);
 
         this.setLayout(new BorderLayout());
-        this.setBackground(null);
+        this.setBackground(theme.getCurrentBackgroundColor().main());
 
         this.add(textFormat.getPanel(), BorderLayout.NORTH);
         this.add(buttonFormat.getPanel(), BorderLayout.CENTER);
@@ -57,6 +57,7 @@ public class QuestionAndButton extends JPanel {
          */
 
         VicFormatter thisHolder = new VicFormatter(this, 5);
+        thisHolder.getPanel().setBackground(theme.getCurrentBackgroundColor().main());
 
         this.setPreferredSize(new Dimension(150, 150));
 
@@ -91,6 +92,7 @@ public class QuestionAndButton extends JPanel {
 
     public void setText(String option){
         optionText = option;
+        optionCanvas.setHorizontalAlignment(JTextField.CENTER);
         optionCanvas.setText(optionText);
     }
 
