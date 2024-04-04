@@ -9,5 +9,4 @@ public class filePaths {
     public static String questList = "Questions.txt";
 
     public static String saveFilePath = "./src/Main/SaveFiles/";
-
 }

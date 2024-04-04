@@ -12,6 +12,7 @@ import src.UIElements.TextCanvas;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
+import java.util.HashMap;
 
 public class SearchPanel extends JPanel{
     JPanel searchPanel;
@@ -23,8 +24,10 @@ public class SearchPanel extends JPanel{
     private VicFormatter topPanel;
     private TextCanvas textPNL;
     private RoundedPanel round;
+    HashMap<String, JComponent> map;
 
     public SearchPanel(CurrentUITheme theme){
+        map = new HashMap<>();
         this.theme = theme;
         int buffDistance = 5;
         searchPanel = new JPanel();
@@ -38,6 +41,7 @@ public class SearchPanel extends JPanel{
         logoGetter = new Images("magnifyGlass", theme, "UIimage");
         RoundedButton magButton = new RoundButton(logoGetter.getImage(), theme);
         searchButton = new VicFormatter(magButton, buffDistance);
+        map.put("topSearchButton", magButton);
 
         //textPanel = new VicTextPanel(theme, 30, true, 5, 200, 120);
         textPNL = new TextCanvas(theme, 22, true);
@@ -48,6 +52,7 @@ public class SearchPanel extends JPanel{
         textPNL.setBorder(new BevelBorder(3,theme.getCurrentForegroundColor().main(), theme.getCurrentForegroundColor().main()));
         //round.setMaximumSize(new Dimension(7000, 1000));
         SwingUtilities.invokeLater(() -> textPNL.setCaretPosition(0));
+        map.put("topSearchPanel", textPNL);
 
         textPNL.setColumnWidths(10);
 
@@ -76,6 +81,10 @@ public class SearchPanel extends JPanel{
         this.repaint();
 
         topPanel.getPanel().repaint();
+    }
+
+    public HashMap<String, JComponent> getMap(){
+        return map;
     }
 
 }

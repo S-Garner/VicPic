@@ -23,6 +23,7 @@ public class Holder {
     private ArrayList<Victim> victims;
     private ArrayList<PlayerPanel> playerPanels;
     private ArrayList<Questions> questions;
+    private VictimManager manager;
 
     public Holder() throws FileNotFoundException{
         theme = Input.readUIThemeFile(saveFilePath + uiTheme);
@@ -52,6 +53,10 @@ public class Holder {
 
     public void saveStudents(){
 
+    }
+
+    public void setManagaer(VictimManager inManager){
+        manager = inManager;
     }
 
 }
