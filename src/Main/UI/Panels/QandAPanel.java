@@ -2,6 +2,7 @@ package src.Main.UI.Panels;
 
 import src.Main.UI.Format.VicFormatter;
 import src.Questions.Questions;
+import src.UIElements.Buttons.HeldButton;
 import src.UIElements.Buttons.RoundButton;
 import src.UIElements.Colors.CurrentUITheme;
 import src.UIElements.Colors.Images;
@@ -147,18 +148,20 @@ public class QandAPanel {
         VicFormatter questionFormat = new VicFormatter(questionHolderPanel, 5);
 
         optionHolder = new RoundedPanel(theme);
+        optionHolder.setSize(new Dimension(400, 300));
+        //optionHolder.add(new QuestionAndButton("Test", theme));
         VicFormatter optionHolderFormat = new VicFormatter(optionHolder, 5);
 
         //mainPanel.add(buttonPanelFormat.getPanel());
         mainPanel.add(buttonPNLFormat.getPanel(), BorderLayout.NORTH);
         //mainPanel.add(buttonPNLFormat.getPanel());
-        mainPanel.add(questionFormat.getPanel());
-        //mainPanel.add(optionHolderFormat.getPanel());
+        mainPanel.add(questionFormat.getPanel(), BorderLayout.CENTER);
+        mainPanel.add(optionHolderFormat.getPanel(), BorderLayout.SOUTH);
 
         setter = new JPanel();
         setter.setSize(new Dimension(700, 200));
 
-        //optionHolder.setPreferredSize(new Dimension(700, 200));
+        optionHolder.setPreferredSize(new Dimension(700, 200));
 
         optionHolder.add(setter);
 
@@ -205,14 +208,31 @@ public class QandAPanel {
     }
 
     private void checkAnswer(Questions currentQuestion) {
-        for (Component component : optionHolder.getComponents()) {
+        boolean answerChecked = false;
+
+        for (Component component : setter.getComponents()) {
             if (component instanceof QuestionAndButton) {
-                QuestionAndButton option = (QuestionAndButton) component;
-                if (option.getButtonHeld()) {
-                    boolean isCorrect = option.isCorrect(currentQuestion.getAnswer());
-                    // Update UI or logic based on whether the answer is correct
+                QuestionAndButton questionAndButton = (QuestionAndButton) component;
+                HeldButton button = questionAndButton.getButton();
+
+                if (button.isHeld()) {
+                    boolean isCorrect = questionAndButton.isCorrect(currentQuestion.getAnswer());
+                    answerChecked = true;
+
+                    // Update the button appearance based on whether it is correct
+                    button.setBackground(isCorrect ? Color.GREEN : Color.RED);
+
+                    // Optional: display a message or update the score
+                    System.out.println("Answer is " + (isCorrect ? "correct" : "incorrect"));
                 }
+
+                // Reset the button state if necessary
+                button.setHeld(false);
             }
+        }
+
+        if (!answerChecked) {
+            System.out.println("No option selected");
         }
     }
 
@@ -257,6 +277,7 @@ public class QandAPanel {
         setter.removeAll(); // Make sure this is the correct panel to use
         for (String option : question.getOptions()) {
             QuestionAndButton optionPanel = new QuestionAndButton(option, theme);
+            optionPanel.setText(option);
             setter.add(optionPanel); // Ensure this is the panel where options are shown
         }
 

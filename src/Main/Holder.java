@@ -59,4 +59,8 @@ public class Holder {
         manager = inManager;
     }
 
+    public ArrayList<Questions> getQuestions(){
+        return questions;
+    }
+
 }

@@ -45,8 +45,22 @@ public class HeldButton extends RoundButton {
         });
     }
 
+    private void toggleHeldState() {
+        setHeld(!isHeld);
+    }
+
     public boolean isHeld() {
         return isHeld;
+    }
+
+    public void setHeld(boolean held) {
+        isHeld = held;
+        if (isHeld) {
+            setBackground(pressedBackgroundColor); // Make sure pressedBackgroundColor is defined or use an existing color
+        } else {
+            setBackground(theme.getCurrentBackgroundColor().main());
+        }
+        repaint();
     }
 
     // Optional: Override paintComponent if you want the HeldButton to have a different appearance

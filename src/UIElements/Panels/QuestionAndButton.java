@@ -26,18 +26,21 @@ public class QuestionAndButton extends JPanel {
     VicFormatter buttonFormat;
 
     public QuestionAndButton(String inOption, CurrentUITheme theme){
-
+        CurrentUITheme invert = new CurrentUITheme(theme.getForegroundString(), theme.getBackgroundString());
 
         optionText = new String(inOption);
         optionCanvas = new TextCanvas(theme, fontSize, notEdit);
+        optionCanvas.setForeground(theme.getCurrentForegroundColor().main());
         optionButton = new HeldButton("", theme);
+        optionButton.setPreferredSize(new Dimension(50, 50));
 
         VicFormatter textFormat = new VicFormatter(optionCanvas, 5);
-        textFormat.getPanel().setBackground(null);
+        textFormat.getPanel().setBackground(theme.getCurrentBackgroundColor().main());
         VicFormatter buttonFormat = new VicFormatter(optionButton, 5);
         buttonFormat.getPanel().setBackground(null);
 
-        optionCanvas.setText(inOption);
+        //optionCanvas.setText("Test");
+        //optionCanvas.setText(inOption);
 
         this.setLayout(new BorderLayout());
         this.setBackground(null);
@@ -45,9 +48,17 @@ public class QuestionAndButton extends JPanel {
         this.add(textFormat.getPanel(), BorderLayout.NORTH);
         this.add(buttonFormat.getPanel(), BorderLayout.CENTER);
 
+        /*
+        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        this.setBackground(theme.getCurrentBackgroundColor().main());
+
+        this.add(textFormat.getPanel());
+        this.add(buttonFormat.getPanel());
+         */
+
         VicFormatter thisHolder = new VicFormatter(this, 5);
 
-        this.setPreferredSize(new Dimension(100, 100));
+        this.setPreferredSize(new Dimension(150, 150));
 
     }
 
@@ -76,6 +87,15 @@ public class QuestionAndButton extends JPanel {
 
         return correct;
 
+    }
+
+    public void setText(String option){
+        optionText = option;
+        optionCanvas.setText(optionText);
+    }
+
+    public HeldButton getButton(){
+        return optionButton;
     }
 
 }

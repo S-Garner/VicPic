@@ -107,7 +107,7 @@ public class VicMainUI {
         VicFormatter qaPanelHolder = new VicFormatter(qaPanel.getPanel(), 5);
         qaPanelHolder.getPanel().setOpaque(false);
         //qaPanelHolder.getPanel().setBackground(mainHolder.getTheme().getCurrentBackgroundColor().main());
-        //qaPanel.setQuestions(qaPanel.setQuestions());
+        qaPanel.setQuestions(mainHolder.getQuestions());
 
         // Panel to hold high scores and questions
         RoundedPanel highScoreAndQuestionPanel = new RoundedPanel(mainHolder.getTheme());
