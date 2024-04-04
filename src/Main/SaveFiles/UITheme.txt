@@ -1,2 +1,2 @@
-Foreground:egg
-Background:moss
+Foreground:crimson
+Background:charcoal

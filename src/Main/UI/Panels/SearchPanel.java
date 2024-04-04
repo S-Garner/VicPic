@@ -41,6 +41,7 @@ public class SearchPanel extends JPanel{
         logoGetter = new Images("magnifyGlass", theme, "UIimage");
         RoundedButton magButton = new RoundButton(logoGetter.getImage(), theme);
         searchButton = new VicFormatter(magButton, buffDistance);
+        searchButton.getPanel().setBackground(theme.getCurrentBackgroundColor().main());
         map.put("topSearchButton", magButton);
 
         //textPanel = new VicTextPanel(theme, 30, true, 5, 200, 120);
@@ -49,6 +50,7 @@ public class SearchPanel extends JPanel{
         //textPNL.setPreferredSize(new Dimension(1, 30));
         round = new RoundedPanel(theme);
         round.add(textPNL);
+        round.setBackground(theme.getCurrentBackgroundColor().main());
         textPNL.setBorder(new BevelBorder(3,theme.getCurrentForegroundColor().main(), theme.getCurrentForegroundColor().main()));
         //round.setMaximumSize(new Dimension(7000, 1000));
         SwingUtilities.invokeLater(() -> textPNL.setCaretPosition(0));
@@ -66,6 +68,7 @@ public class SearchPanel extends JPanel{
         round.setMaximumSize(new Dimension(500, 50));
 
         topPanel = new VicFormatter(searchPanel, buffDistance);
+        topPanel.getPanel().setBackground(theme.getCurrentBackgroundColor().main());
 
     }
 

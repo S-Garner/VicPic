@@ -49,6 +49,7 @@ public class HighScorePanel {
 
         mainPanel = new RoundedPanel(this.theme);
         mainPanel.setLayout(new BorderLayout());
+        mainPanel.setBackground(theme.getCurrentBackgroundColor().main());
         map.put("hsMainPanel", mainPanel);
 
         Highscores = new TextCanvas(theme, fontSize, false);
@@ -56,6 +57,7 @@ public class HighScorePanel {
         map.put("hsLabelMain", Highscores);
 
         ScoreContainer = new JPanel();
+        ScoreContainer.setBackground(theme.getCurrentBackgroundColor().main());
         ScoreContainer.setLayout(new BoxLayout(ScoreContainer, BoxLayout.Y_AXIS));
 
 
@@ -83,6 +85,7 @@ public class HighScorePanel {
         panel1.setLayout(new BoxLayout(panel1, BoxLayout.X_AXIS));
         No1Lbl.setSize(new Dimension(30, 30));
         VicFormatter panel1Form = new VicFormatter(No1Lbl, 5);
+        panel1Form.getPanel().setBackground(theme.getCurrentBackgroundColor().main());
         panel1.add(panel1Form.getPanel());
         panel1.add(No1);
         No1.setText("Test1");
@@ -153,6 +156,7 @@ public class HighScorePanel {
         ScoreContainer.setBackground(theme.getCurrentBackgroundColor().main());
 
         VicFormatter contScoreFormat = new VicFormatter(ScoreContainer, buffDistance);
+        contScoreFormat.getPanel().setBackground(theme.getCurrentBackgroundColor().main());
         contScoreFormat.getPanel().setSize(new Dimension(800, 600));
         contScoreFormat.getPanel().setBackground(theme.getCurrentBackgroundColor().main());
         VicFormatter highScoreFormat = new VicFormatter(Highscores, buffDistance);
@@ -165,7 +169,8 @@ public class HighScorePanel {
 
         scoreFormat = new VicFormatter(mainPanel, buffDistance);
         scoreFormat.getPanel().setPreferredSize(new Dimension(800, 100));
-        scoreFormat.getPanel().setBackground(theme.getCurrentBackgroundColor().main());
+        //scoreFormat.getPanel().setBackground(theme.getCurrentBackgroundColor().main());
+        scoreFormat.getPanel().setOpaque(false);
 
     }
 
