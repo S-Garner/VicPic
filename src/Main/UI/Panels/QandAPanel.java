@@ -37,7 +37,6 @@ public class QandAPanel {
     // An array for the options
     // There can be <=4 possible
     QuestionAndButton[] options;
-
     // Where all the questions are
     private Queue<Questions> questionsQueue;
 
@@ -50,6 +49,7 @@ public class QandAPanel {
     public QandAPanel(CurrentUITheme inTheme){
 
         questionsQueue = new LinkedList<>();
+        options = new QuestionAndButton[4];
 
         map = new HashMap<>();
 
@@ -208,14 +208,47 @@ public class QandAPanel {
         questionsQueue.addAll(questions);
     }
 
+    private boolean checkAnswer(Questions currentQuestion){
+        boolean returnValue = false;
+
+        for (int i = 0; i < options.length; i++){
+            if(options[i].getButtonHeld()){
+                if(options[i].getText() == currentQuestion.getAnswer()){
+                    options[i].getCanvas().setBackground(Color.GREEN);
+                    returnValue = true;
+                }else{
+                    options[i].getCanvas().setBackground(Color.RED);
+                    returnValue = false;
+                }
+            }
+        }
+
+        return returnValue;
+
+    }
+
+    /*
     private void checkAnswer(Questions currentQuestion) {
         boolean answerChecked = false;
+        boolean correctAnswer = false;
+
+        String corAnswer = currentQuestion.getAnswer();
 
         for (Component component : setter.getComponents()) {
             if (component instanceof QuestionAndButton) {
                 QuestionAndButton questionAndButton = (QuestionAndButton) component;
                 HeldButton button = questionAndButton.getButton();
 
+                boolean isCorrect = questionAndButton.isCorrect(currentQuestion.getAnswer());
+
+                if (isCorrect){
+                    ((QuestionAndButton) component).getCanvas().updateColors(Color.GREEN);
+                }else if (!isCorrect){
+                    button.setBackground(Color.RED);
+                }
+
+
+                /*
                 if (button.isHeld()) {
                     boolean isCorrect = questionAndButton.isCorrect(currentQuestion.getAnswer());
                     answerChecked = true;
@@ -230,6 +263,7 @@ public class QandAPanel {
                     System.out.println("Answer is " + (isCorrect ? "correct" : "incorrect"));
                 }
 
+
                 // Reset the button state if necessary
                 button.setHeld(false);
             }
@@ -239,6 +273,7 @@ public class QandAPanel {
             System.out.println("No option selected");
         }
     }
+    */
 
     private void displayNextQuestion() {
         if (questionsQueue.isEmpty() && displayedQuestions.isEmpty()) {
@@ -277,6 +312,7 @@ public class QandAPanel {
 
     private void displayQuestion(Questions question) {
         setDisplayText(question.getQuestion());
+        //options.
 
         // Clear existing options in the optionHolder
         setter.removeAll(); // Make sure this is the correct panel to use
@@ -285,6 +321,7 @@ public class QandAPanel {
             optionPanel.setBackground(theme.getCurrentBackgroundColor().main());
             optionPanel.setText(option);
             setter.add(optionPanel); // Ensure this is the panel where options are shown
+            options
         }
 
         optionHolder.revalidate();

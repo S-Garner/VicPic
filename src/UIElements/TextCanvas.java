@@ -28,6 +28,10 @@ public class TextCanvas extends JTextField {
         repaint(); // Refresh the component to apply new colors
     }
 
+    public void updateColors(Color thisColor){
+        setBackground(thisColor);
+    }
+
     public void setColumnWidths(int columnWidth){
         this.setColumns(columnWidth);
     }

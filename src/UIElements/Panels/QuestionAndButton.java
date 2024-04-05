@@ -78,10 +78,12 @@ public class QuestionAndButton extends JPanel {
         boolean correct;
         if (optionText == inAnswer){
             optionCanvas.setBackground(Color.GREEN);
+            optionCanvas.updateColors(Color.GREEN);
             correct = true;
         }
         else{
             optionCanvas.setBackground(Color.RED);
+            optionCanvas.updateColors(Color.RED);
             correct = false;
         }
         optionCanvas.repaint();
@@ -96,8 +98,16 @@ public class QuestionAndButton extends JPanel {
         optionCanvas.setText(optionText);
     }
 
+    public String getText(){
+        return optionText;
+    }
+
     public HeldButton getButton(){
         return optionButton;
+    }
+
+    public TextCanvas getCanvas(){
+        return optionCanvas;
     }
 
 }
