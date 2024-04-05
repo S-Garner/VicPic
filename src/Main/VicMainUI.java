@@ -43,7 +43,7 @@ public class VicMainUI {
         JPanel controlAndContentPanel = new JPanel(new BorderLayout());
 
         // Initialize map
-        map = new HashMap<>();
+        map = mainHolder.getMap();
 
         // Main content panel with rounded borders
         RoundedPanel contentPanel = new RoundedPanel(mainHolder.getTheme());
