@@ -33,8 +33,8 @@ public class Output {
         String fileName = "./src/Main/SaveFiles/UITheme.txt";
         FileWriter writer = new FileWriter(fileName);
 
-        writer.write("Foreground:" + theme.getBackgroundString() + "\n");
-        writer.write("Background:" + theme.getForegroundString() + "\n");
+        writer.write("Background:" + theme.getBackgroundString() + "\n");
+        writer.write("Foreground:" + theme.getForegroundString() + "\n");
 
         writer.close();
     }

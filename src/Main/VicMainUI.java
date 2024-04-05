@@ -17,7 +17,7 @@ public class VicMainUI {
     private CurrentUITheme theme;
     private ArrayList<Victim> victims;
     private Holder mainHolder;
-    private VictimManager manager;
+    private VictimPanelManager manager;
     private HashMap<String, JComponent> map;
 
     public VicMainUI(Holder inHolder){
@@ -78,7 +78,7 @@ public class VicMainUI {
         playerDisplayTopPanel.add(playerDisplayPanel.getTopPanel());  // Add top panel of player display
 
         // This will be used to send changes to the students selected
-        manager = new VictimManager(playerDisplayPanel);
+        manager = new VictimPanelManager(playerDisplayPanel);
         mainHolder.setManagaer(manager);
 
         // Panel for current user stats
@@ -133,6 +133,9 @@ public class VicMainUI {
         // Put all components into map
         map.putAll(searchPanel.getMap());
 
+        // Put all controlPanel components into map
+        map.putAll(controlPanel.getMap());
+
         // Assemble control and content panels
         controlAndContentPanel.add(controlPanel.getFormat(), BorderLayout.WEST);
         controlAndContentPanel.add(contentFormatter.getPanel(), BorderLayout.CENTER);
@@ -143,6 +146,12 @@ public class VicMainUI {
         mainPanel.add(controlAndContentPanel, BorderLayout.CENTER);  // Add control and content panel to main panel
         mainPanel.add(searchPanel.getFormat(), BorderLayout.NORTH);  // Add search panel to the top of main panel
         mainPanel.setOpaque(false);
+
+        mainHolder.setMap(map);
+
     }
 
+    public Holder getHolder() {
+        return mainHolder;
+    }
 }

@@ -42,7 +42,7 @@ public class ControlPanel {
         imageGetter = new Images("floppy", theme, "UIimage");
         RoundButton saveV = new RoundButton(imageGetter.getImage(), theme);
         saveV.setToolTipText("Save");
-        map.put("csButton3", saveV);
+        map.put("csButton7", saveV);
         save = new VicFormatter(saveV, buffDistance);
 
         imageGetter = new Images("X", theme, "UIimage");
@@ -72,7 +72,7 @@ public class ControlPanel {
         imageGetter = new Images("door", theme, "UIimage");
         RoundButton ext = new RoundButton(imageGetter.getImage(), theme);
         ext.setToolTipText("Exit");
-        map.put("csButton7", ext);
+        map.put("csButton8", ext);
         exit = new VicFormatter(ext, buffDistance);
 
         JPanel test = new JPanel();

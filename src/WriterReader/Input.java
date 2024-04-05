@@ -66,10 +66,10 @@ public class Input {
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine().trim();
 
-            if (line.startsWith("Foreground:")) {
-                foreground = line.substring(line.indexOf(":") + 1).trim();
-            } else if (line.startsWith("Background:")) {
+            if (line.startsWith("Background:")) {
                 background = line.substring(line.indexOf(":") + 1).trim();
+            } else if (line.startsWith("Foreground:")) {
+                foreground = line.substring(line.indexOf(":") + 1).trim();
             }
         }
         scanner.close();

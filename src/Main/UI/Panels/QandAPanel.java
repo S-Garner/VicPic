@@ -36,11 +36,13 @@ public class QandAPanel {
 
     // An array for the options
     // There can be <=4 possible
-    QuestionAndButton[] options;
+    ArrayList<QuestionAndButton> options;
     // Where all the questions are
     private Queue<Questions> questionsQueue;
 
     private HashMap<String, JComponent> map;
+
+    private Questions currentQuestion;
 
     JPanel setter = new JPanel();
 
@@ -49,7 +51,7 @@ public class QandAPanel {
     public QandAPanel(CurrentUITheme inTheme){
 
         questionsQueue = new LinkedList<>();
-        options = new QuestionAndButton[4];
+        options = new ArrayList<>();
 
         map = new HashMap<>();
 
@@ -86,11 +88,7 @@ public class QandAPanel {
 
         previous.addActionListener(e -> displayPreviousQuestion());
 
-        check.addActionListener(e -> {
-            if (!questionsQueue.isEmpty()) {
-                checkAnswer(questionsQueue.peek()); // Peek to get the current question without removing it
-            }
-        });
+        check.addActionListener(e -> checkAnswer());
 
         //buttonPanel.add(previous);
         //buttonPanel.add(check);
@@ -109,29 +107,21 @@ public class QandAPanel {
         buttonPanel.setPreferredSize(new Dimension(600, 400));
 
         questionDisplayField1 = new TextCanvas(themeInvert, 25, false);
-        questionDisplayField1.setBorder(new BevelBorder(1, theme.getCurrentBackgroundColor().main(), theme.getCurrentBackgroundColor().main()));
-        //questionDisplayField1.setText("TestTestTestTestTestTestTestTestTestTestTest");
         questionDisplayField1.setBackground(null);
         questionDisplayField1.setPreferredSize(new Dimension(755, 40));
         questionDisplayField1.setHorizontalAlignment(JTextField.CENTER);
 
         questionDisplayField2 = new TextCanvas(themeInvert, 25, false);
-        questionDisplayField2.setBorder(new BevelBorder(1, theme.getCurrentBackgroundColor().main(), theme.getCurrentBackgroundColor().main()));
-        //questionDisplayField2.setText("TestTestTestTestTestTestTestTestTestTestTest");
         questionDisplayField2.setBackground(null);
         questionDisplayField2.setPreferredSize(new Dimension(755, 40));
         questionDisplayField2.setHorizontalAlignment(JTextField.CENTER);
 
         questionDisplayField3 = new TextCanvas(themeInvert, 25, false);
-        questionDisplayField3.setBorder(new BevelBorder(1, theme.getCurrentBackgroundColor().main(), theme.getCurrentBackgroundColor().main()));
-        //questionDisplayField3.setText("TestTestTestTestTestTestTestTestTestTestTest");
         questionDisplayField3.setBackground(null);
         questionDisplayField3.setPreferredSize(new Dimension(755, 40));
         questionDisplayField3.setHorizontalAlignment(JTextField.CENTER);
 
         questionDisplayField4 = new TextCanvas(themeInvert, 25, false);
-        questionDisplayField4.setBorder(new BevelBorder(1, theme.getCurrentBackgroundColor().main(), theme.getCurrentBackgroundColor().main()));
-        //questionDisplayField4.setText("TestTestTestTestTestTestTestTestTestTestTestTestTest");
         questionDisplayField4.setBackground(null);
         questionDisplayField4.setPreferredSize(new Dimension(755, 40));
         questionDisplayField4.setHorizontalAlignment(JTextField.CENTER);
@@ -208,23 +198,35 @@ public class QandAPanel {
         questionsQueue.addAll(questions);
     }
 
-    private boolean checkAnswer(Questions currentQuestion){
-        boolean returnValue = false;
+    private void checkAnswer() {
+        if (currentQuestion == null) {
+            System.out.println("No question loaded.");
+            return;
+        }
 
-        for (int i = 0; i < options.length; i++){
-            if(options[i].getButtonHeld()){
-                if(options[i].getText() == currentQuestion.getAnswer()){
-                    options[i].getCanvas().setBackground(Color.GREEN);
-                    returnValue = true;
-                }else{
-                    options[i].getCanvas().setBackground(Color.RED);
-                    returnValue = false;
+        boolean answerFound = false;
+
+        for (QuestionAndButton option : options) {
+            // Check if the option is selected
+            if (option.getButton().isHeld()) {
+                option.getButton().setHeld(false); // Reset the button state
+                boolean isCorrect = option.getText().equals(currentQuestion.getAnswer());
+
+                // Update the option button appearance based on whether the answer is correct
+                if (isCorrect) {
+                    option.getCanvas().setBackground(Color.GREEN);
+                    System.out.println("Correct answer selected.");
+                    answerFound = true;
+                } else {
+                    option.getCanvas().setBackground(Color.RED);
+                    System.out.println("Incorrect answer selected.");
                 }
             }
         }
 
-        return returnValue;
-
+        if (!answerFound) {
+            System.out.println("No option selected or no correct option found.");
+        }
     }
 
     /*
@@ -278,13 +280,10 @@ public class QandAPanel {
     private void displayNextQuestion() {
         if (questionsQueue.isEmpty() && displayedQuestions.isEmpty()) {
             JOptionPane.showMessageDialog(null,"No more questions available");
-            System.out.println("No more questions available.");
             return;
         }
 
-        // Only pull from queue if we're not going back in history
-        Questions currentQuestion;
-        if (!displayedQuestions.isEmpty() && displayedQuestions.peek() == questionsQueue.peek()) {
+        if (!displayedQuestions.isEmpty() && !questionsQueue.isEmpty() && displayedQuestions.peek() == questionsQueue.peek()) {
             displayedQuestions.pop(); // Remove current question to get to the previous one in history
         }
 
@@ -304,24 +303,23 @@ public class QandAPanel {
             return;
         }
 
-        displayedQuestions.pop(); // Remove current question
-        Questions previousQuestion = displayedQuestions.peek(); // Get the previous question
+        displayedQuestions.pop(); // Remove current question to get to the previous one
+        currentQuestion = displayedQuestions.peek(); // Get the previous question
 
-        displayQuestion(previousQuestion);
+        displayQuestion(currentQuestion);
     }
 
     private void displayQuestion(Questions question) {
         setDisplayText(question.getQuestion());
-        //options.
 
-        // Clear existing options in the optionHolder
         setter.removeAll(); // Make sure this is the correct panel to use
-        for (String option : question.getOptions()) {
-            QuestionAndButton optionPanel = new QuestionAndButton(option, theme);
-            optionPanel.setBackground(theme.getCurrentBackgroundColor().main());
-            optionPanel.setText(option);
-            setter.add(optionPanel); // Ensure this is the panel where options are shown
-            options
+        options.clear(); // Clear existing options
+
+        for (String optionText : question.getOptions()) {
+            QuestionAndButton optionPanel = new QuestionAndButton(optionText, theme);
+            optionPanel.setText(optionText); // Ensure this method sets the text properly
+            options.add(optionPanel);
+            setter.add(optionPanel);
         }
 
         optionHolder.revalidate();

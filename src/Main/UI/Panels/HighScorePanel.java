@@ -89,7 +89,7 @@ public class HighScorePanel {
         panel1.add(panel1Form.getPanel());
         panel1.add(No1);
         No1.setText("Test1");
-        panel1.setSize(new Dimension(200, 10));
+        panel1.setSize(new Dimension(700, 10));
         No1Form = new VicFormatter(panel1, 2);
         map.put("hsTextPane1", No1);
 
@@ -100,7 +100,7 @@ public class HighScorePanel {
         panel2.add(panel2Form.getPanel());
         panel2.add(No2);
         No2.setText("Test2");
-        panel2.setSize(new Dimension(200, 10));
+        panel2.setSize(new Dimension(700, 10));
         No2Form = new VicFormatter(panel2, 2);
         map.put("hsTextPane2", No2);
 
@@ -111,7 +111,7 @@ public class HighScorePanel {
         panel3.add(panel3Form.getPanel());
         panel3.add(No3);
         No3.setText("Test3");
-        panel3.setSize(new Dimension(200, 10));
+        panel3.setSize(new Dimension(700, 10));
         No3Form = new VicFormatter(panel3, 2);
         map.put("hsTextPane3", No3);
 
@@ -122,7 +122,7 @@ public class HighScorePanel {
         panel4.add(panel4Form.getPanel());
         panel4.add(No4);
         No4.setText("Test4");
-        panel4.setSize(new Dimension(200, 10));
+        panel4.setSize(new Dimension(700, 10));
         No4Form = new VicFormatter(panel4, 2);
         map.put("hsTextPane4", No4);
 
@@ -133,24 +133,24 @@ public class HighScorePanel {
         panel5.add(panel5Form.getPanel());
         panel5.add(No5);
         No5.setText("Test5");
-        panel5.setSize(new Dimension(200, 10));
+        panel5.setSize(new Dimension(700, 10));
         No5Form = new VicFormatter(panel5, 2);
         map.put("hsTextPane5", No5);
 
         ScoreContainer.add(No1Form.getPanel());
-        No1Form.getPanel().setPreferredSize(new Dimension(200, 170));
+        No1Form.getPanel().setPreferredSize(new Dimension(700, 170));
         No1Form.getPanel().setBackground(theme.getCurrentBackgroundColor().main());
         ScoreContainer.add(No2Form.getPanel());
-        No2Form.getPanel().setPreferredSize(new Dimension(200, 170));
+        No2Form.getPanel().setPreferredSize(new Dimension(700, 170));
         No2Form.getPanel().setBackground(theme.getCurrentBackgroundColor().main());
         ScoreContainer.add(No3Form.getPanel());
-        No3Form.getPanel().setPreferredSize(new Dimension(200, 170));
+        No3Form.getPanel().setPreferredSize(new Dimension(700, 170));
         No3Form.getPanel().setBackground(theme.getCurrentBackgroundColor().main());
         ScoreContainer.add(No4Form.getPanel());
-        No4Form.getPanel().setPreferredSize(new Dimension(200, 170));
+        No4Form.getPanel().setPreferredSize(new Dimension(700, 170));
         No4Form.getPanel().setBackground(theme.getCurrentBackgroundColor().main());
         ScoreContainer.add(No5Form.getPanel());
-        No5Form.getPanel().setPreferredSize(new Dimension(200, 170));
+        No5Form.getPanel().setPreferredSize(new Dimension(700, 170));
         No5Form.getPanel().setBackground(theme.getCurrentBackgroundColor().main());
 
         ScoreContainer.setBackground(theme.getCurrentBackgroundColor().main());

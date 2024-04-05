@@ -11,7 +11,6 @@ import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.RandomAccess;
 
 import static src.Main.Assets.filePaths.*;
 
@@ -23,7 +22,7 @@ public class Holder {
     private ArrayList<Victim> victims;
     private ArrayList<PlayerPanel> playerPanels;
     private ArrayList<Questions> questions;
-    private VictimManager manager;
+    private VictimPanelManager manager;
 
     public Holder() throws FileNotFoundException{
         theme = Input.readUIThemeFile(saveFilePath + uiTheme);
@@ -43,6 +42,9 @@ public class Holder {
     // Randomize images, giving a name from the victim list to each photo
     public void randomizeImages(boolean reset){
         randomizeImg = new RandomizeImages(victims, photoPath);
+    }
+
+    public void resetImages(boolean reset){
         // Be extra careful with this; If true, then will go through
         // The photoPath and give all the images in the class the name
         // "image_i" i being the count in the loop
@@ -52,15 +54,22 @@ public class Holder {
     }
 
     public void saveStudents(){
-
     }
 
-    public void setManagaer(VictimManager inManager){
+    public void setManagaer(VictimPanelManager inManager){
         manager = inManager;
     }
 
     public ArrayList<Questions> getQuestions(){
         return questions;
+    }
+
+    public HashMap<String, JComponent> getMap(){
+        return map;
+    }
+
+    public void setMap(HashMap<String, JComponent> inMap){
+        map.putAll(inMap);
     }
 
 }
