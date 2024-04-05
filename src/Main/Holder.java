@@ -28,6 +28,7 @@ public class Holder {
         theme = Input.readUIThemeFile(saveFilePath + uiTheme);
         victims = Input.readStudentFile(saveFilePath + vicList);
         questions = Input.readQuestionsFile(saveFilePath + questList);
+        map = new HashMap<>();
     }
 
     public CurrentUITheme getTheme(){

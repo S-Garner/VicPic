@@ -3,7 +3,7 @@ package src.Main;
 import java.io.FileNotFoundException;
 
 public class Frontend {
-    private Holder holder;
+    private Holder mainHolder;
     private VicMainUI vicUI;
 
     public Frontend() throws FileNotFoundException {
@@ -12,7 +12,7 @@ public class Frontend {
     }
 
     public Holder getHolder(){
-        return holder;
+        return mainHolder;
     }
 
     public VicMainUI getVicUI(){
