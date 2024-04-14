@@ -350,17 +350,6 @@ Passed:0
 Phone:2
 Jail:2
 
-First name:Dakotah
-Last name:Sutton-Rodriguez
-Nickname:
-Points:0
-Absents:0
-Answered:0
-Times Picked:0
-Passed:0
-Phone:2
-Jail:2
-
 First name:Heather
 Last name:Watson
 Nickname:
@@ -371,3 +360,4 @@ Times Picked:0
 Passed:0
 Phone:2
 Jail:2
+

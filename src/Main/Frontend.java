@@ -7,8 +7,8 @@ public class Frontend {
     private VicMainUI vicUI;
 
     public Frontend() throws FileNotFoundException {
-        mainHolder = new Holder();
-        VicMainUI mainFront = new VicMainUI(mainHolder);
+        mainHolder = new Holder(); //<- Tech team go here
+        VicMainUI mainFront = new VicMainUI(mainHolder); //Useless
     }
 
     public Holder getHolder(){
@@ -20,3 +20,4 @@ public class Frontend {
     }
 
 }
+

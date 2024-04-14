@@ -1,6 +1,8 @@
 package src.Main.UI.Panels;
 
+import src.Main.Holder;
 import src.Main.UI.Format.VicFormatter;
+import src.Main.UI.Frames.*;
 import src.UIElements.Buttons.RoundButton;
 import src.UIElements.Colors.CurrentUITheme;
 import src.UIElements.Colors.Images;
@@ -8,6 +10,8 @@ import src.UIElements.Panels.RoundedPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,9 +26,13 @@ public class ControlPanel {
     private VicFormatter exit;
     private VicFormatter topPanel;
     private HashMap<String, JComponent> map;
+    private Holder holder;
 
-    public ControlPanel(CurrentUITheme theme) {
+    public ControlPanel(CurrentUITheme theme, Holder holder) {
         map = new HashMap<>();
+
+        //assign the main holder
+        this.holder = holder;
 
         controlPanel = new RoundedPanel(theme);
         map.put("csButton1", controlPanel);
@@ -101,6 +109,44 @@ public class ControlPanel {
         topPanel = new VicFormatter(controlPanel, buffDistance);
         //topPanel.getPanel().setMinimumSize(new Dimension(300, 300));
         map.put("csTopPanel", topPanel.getPanel());
+
+        //Call the functions for the Add victim button
+        addVictim.getComponent().addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                new AddVictimFrame(holder);
+            }
+        });
+        //Call the functions for the Delete victim button
+        deleteVictim.getComponent().addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                new DeleteVictimFrame(holder);
+            }
+        });
+        //Call the functions for the Delete victim button
+        editVictim.getComponent().addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                new EditVictimFrame(holder);
+            }
+        });
+        //Call the edit class function
+        editClass.getComponent().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                new EditClassFrame(holder);
+            }
+        });
+        settings.getComponent().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                new SettingsFrame(holder);
+            }
+        });
+        exit.getComponent().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                new ExitFrame(holder);
+            }
+        });
     }
 
     public JPanel getFormat() {
@@ -132,5 +178,4 @@ public class ControlPanel {
 
         controlPanel.repaint(); // Repaint the control panel to reflect the theme changes
     }
-
 }

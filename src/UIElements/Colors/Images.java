@@ -67,6 +67,10 @@ public class Images {
         }
     }
 
+    public Images(BufferedImage bufImage){
+        this.image = bufImage;
+    }
+
     private void processImage(Color color){
         double blendFactor = 0.75;
 

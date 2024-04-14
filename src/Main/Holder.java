@@ -1,5 +1,6 @@
 package src.Main;
 
+import src.Main.VictimPanelManager;
 import src.Questions.Questions;
 import src.Students.Victim;
 import src.UIElements.Colors.CurrentUITheme;
@@ -9,7 +10,9 @@ import src.WriterReader.RandomizeImages;
 
 import javax.swing.*;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 
 import static src.Main.Assets.filePaths.*;
@@ -25,6 +28,7 @@ public class Holder {
     private VictimPanelManager manager;
 
     public Holder() throws FileNotFoundException{
+        //Option to change filepath. Especially on first launch
         theme = Input.readUIThemeFile(saveFilePath + uiTheme);
         victims = Input.readStudentFile(saveFilePath + vicList);
         questions = Input.readQuestionsFile(saveFilePath + questList);
@@ -33,6 +37,16 @@ public class Holder {
 
     public CurrentUITheme getTheme(){
         return theme;
+    }
+
+    public void setTheme(CurrentUITheme c){
+        try {
+            src.WriterReader.Output.writeUIFile(c);
+        }catch(IOException e){
+            //error
+            JPanel errorHolder = new JPanel();
+            JOptionPane.showConfirmDialog(errorHolder,"ERROR: File Not Found");
+        }
     }
 
     public ArrayList<Victim> getVictims(){
@@ -73,4 +87,87 @@ public class Holder {
         map.putAll(inMap);
     }
 
+    public VictimPanelManager getManager(){
+        return manager;
+    }
+
+    public void addVictim(String name){
+        String[] names = name.split(" ");
+        Victim newGuy;
+
+        if(names.length < 2){
+            //only save one name
+            src.Students.StudentFunctions.Names n = new src.Students.StudentFunctions.Names();
+            n.setFirstName(names[0]);
+            n.setLastName("");
+            n.setNickName("");
+            newGuy = new Victim(n, 0,0,0,0,0,2,2);
+        }else{
+            //save the first name and the very last name
+            src.Students.StudentFunctions.Names n = new src.Students.StudentFunctions.Names();
+            n.setFirstName(names[0]);
+            n.setLastName(names[names.length - 1]);
+            n.setNickName("");
+            newGuy = new Victim(n, 0,0,0,0,0,2,2);
+        }
+
+        //add the new victim to the file
+        try {
+            victims.add(newGuy);
+            src.WriterReader.Output.writeStudentFile(victims);
+        }catch(IOException e){
+            //error
+            JPanel errorHolder = new JPanel();
+            JOptionPane.showConfirmDialog(errorHolder,"ERROR: File Not Found");
+        }
+    }
+
+    public void deleteVictim(Victim v){
+        //Delete The Victim
+        try{
+            victims.remove(v);
+            src.WriterReader.Output.writeStudentFile(victims);
+        }catch(IOException e){
+            //error
+            JPanel errorHolder = new JPanel();
+            JOptionPane.showConfirmDialog(errorHolder,"ERROR: File Not Found");
+        }
+    }
+    public void editVictim(Victim v){
+        //Update
+        //Find the victim with the same name
+        boolean foundTheTarget = false;
+        for(Victim vic : victims){
+            if(vic.getName().getFirstName() == v.getName().getFirstName() &&
+                    vic.getName().getLastName() == v.getName().getLastName()){
+                //replace the vic with v
+                victims.add(victims.indexOf(vic), v);
+                victims.remove(vic);
+                foundTheTarget = true;
+                break;
+            }
+        }
+        try{
+            if(foundTheTarget)
+                src.WriterReader.Output.writeStudentFile(victims);
+            else
+                throw new Exception();
+        }catch(ConcurrentModificationException e) {
+            //error because two things are editing at the same time
+            JPanel errorHolder = new JPanel();
+            JOptionPane.showMessageDialog(errorHolder,"ERROR: File in use.");
+        }catch (IOException e){
+            //error
+            JPanel errorHolder = new JPanel();
+            JOptionPane.showMessageDialog(errorHolder,"ERROR: File Not Found");
+        }catch(Exception e){
+            //error
+            JPanel errorHolder = new JPanel();
+            JOptionPane.showMessageDialog(errorHolder,"ERROR: Updated Victim Not Found");
+        }
+    }
+
+    public void exit() {
+        System.exit(0);
+    }
 }

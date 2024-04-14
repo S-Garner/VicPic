@@ -25,4 +25,32 @@ public class VictimPanelManager {
         }
     }
 
+    public boolean anyHeld(){
+        boolean held = false;
+
+        for(PlayerPanel panel : victims){
+            if(panel.getPlayerDisplay().isHeld()){
+                held = true;
+                return held;
+            }
+        }
+
+        return held;
+    }
+
+    public ArrayList<PlayerPanel> getHeld(){
+        ArrayList<PlayerPanel> heldVics = new ArrayList<>();
+
+        for(PlayerPanel panel : victims){
+            if (panel.getPlayerDisplay().isHeld()) {
+                heldVics.add(panel);
+            }
+        }
+
+        return heldVics;
+    }
+
+    public void deleteHeldVictims(){
+    }
+
 }

@@ -5,9 +5,12 @@ import src.Students.Victim;
 import src.UIElements.Buttons.RoundButton;
 import src.UIElements.Buttons.RoundedButton;
 import src.UIElements.Colors.CurrentUITheme;
+import src.UIElements.Colors.ImageResizer;
 import src.UIElements.Colors.Images;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class PlayerPanel extends JPanel {
     private Images image;
@@ -18,6 +21,7 @@ public class PlayerPanel extends JPanel {
     private Images imageGetter;
     private RoundButton randomize;
     private RoundButton remove;
+    private RoundButton testSize;
     private VicFormatter playerFormat;
     private VicFormatter randomFormat;
     private VicFormatter removeFormat;
@@ -31,28 +35,37 @@ public class PlayerPanel extends JPanel {
         this.setOpaque(false);
 
         JPanel tempPanel = new JPanel();
-        tempPanel.setLayout(new BoxLayout(tempPanel, BoxLayout.Y_AXIS));
+        tempPanel.setLayout(new BorderLayout());
+        //tempPanel.setLayout(new BoxLayout(tempPanel, BoxLayout.Y_AXIS));
 
         imageGetter = new Images("null", theme, type);
         player = new DisplayPlayer(imageGetter, theme);
         playerFormat = new VicFormatter(player, buffDistance);
-        tempPanel.add(playerFormat.getPanel());
+        tempPanel.add(playerFormat.getPanel(), BorderLayout.CENTER);
+        //tempPanel.add(playerFormat.getPanel());
 
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+        buttonPanel.setLayout(new BorderLayout());
+        //buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
 
         imageGetter = new Images("dice", theme, "UIimage");
         randomize = new RoundButton(imageGetter.getImage(), theme);
         randomFormat = new VicFormatter(randomize, buffDistance);
-        buttonPanel.add(randomFormat.getPanel());
+        buttonPanel.add(randomFormat.getPanel(), BorderLayout.WEST);
+        //buttonPanel.add(randomFormat.getPanel());
 
         imageGetter = new Images("X", theme, "UIimage");
         remove = new RoundButton(imageGetter.getImage(), theme);
         removeFormat = new VicFormatter(remove, buffDistance);
-        buttonPanel.add(removeFormat.getPanel());
+        buttonPanel.add(removeFormat.getPanel(), BorderLayout.EAST);
+        //buttonPanel.add(removeFormat.getPanel());
         buttonPanel.setOpaque(false);
 
-        tempPanel.add(buttonPanel);
+        testSize = new RoundButton("test", theme);
+        //buttonPanel.add(testSize, BorderLayout.CENTER);
+
+        tempPanel.add(buttonPanel, BorderLayout.SOUTH);
+        //tempPanel.add(buttonPanel);
         tempPanel.setOpaque(false);
         this.add(tempPanel);
 
@@ -60,6 +73,10 @@ public class PlayerPanel extends JPanel {
 
     public RoundButton getRandomButton(){
         return randomize;
+    }
+
+    public RoundButton getTestButton(){
+        return testSize;
     }
 
     public RoundButton getRemoveButton(){
@@ -112,4 +129,23 @@ public class PlayerPanel extends JPanel {
     public void repaint() {
         super.repaint();
     }
+
+    public void resizeComponents(int newPlayerWidth, int newPlayerHeight, int newButtonWidth, int newButtonHeight) {
+        // Resize player image
+        BufferedImage resizedPlayerImage = ImageResizer.resize(player.getImage(), newPlayerWidth, newPlayerHeight);
+        player.updatePlayerImage(new Images(resizedPlayerImage));  // Assuming Images can take a BufferedImage directly
+
+        // Resize randomize button image
+        BufferedImage resizedRandomizeImage = ImageResizer.resize((BufferedImage) randomize.getImage(), newButtonWidth, newButtonHeight);
+        randomize.updateImage(new Images(resizedRandomizeImage));  // Update the image of the button
+
+        // Resize remove button image
+        BufferedImage resizedRemoveImage = ImageResizer.resize((BufferedImage) remove.getImage(), newButtonWidth, newButtonHeight);
+        remove.updateImage(new Images(resizedRemoveImage));  // Update the image of the button
+
+        // Revalidate and repaint to apply changes
+        revalidate();
+        repaint();
+    }
+
 }

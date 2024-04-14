@@ -1,6 +1,9 @@
 package src.Main.UI.Panels;
 
+import src.Interfaces.Instructions;
 import src.Main.UI.Format.VicFormatter;
+import src.Main.VictimPanelManager;
+import src.Students.Victim;
 import src.UIElements.Buttons.HeldButton;
 import src.UIElements.Buttons.RoundButton;
 import src.UIElements.Colors.CurrentUITheme;
@@ -10,6 +13,9 @@ import src.UIElements.TextCanvas;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,10 +32,22 @@ public class PlayerOptions {
     private VicFormatter topPanel;
     private VicFormatter sendButton;
 
+    private TextCanvas textPNL;
+
+    private VictimPanelManager manager;
+
+    private ArrayList<Instructions> instructionsArray;
+
     private HashMap<String, JComponent> map;
 
-    public PlayerOptions(CurrentUITheme theme){
+    int pointText = 0;
+
+    public static final int NUM_ATTRIBUTES = 6;
+
+    public PlayerOptions(CurrentUITheme theme, VictimPanelManager inManager){
         map = new HashMap<>();
+        manager = inManager;
+        instructionsArray = new ArrayList<>();
 
         playerOptions = new RoundedPanel(theme);
         map.put("poPlayerOptionPanel", playerOptions);
@@ -57,12 +75,12 @@ public class PlayerOptions {
 
         imageGetter = new Images("robber", theme, "UIimage");
         HeldButton JailButton = new HeldButton(imageGetter.getImage(), theme);
-        map.put("poButton4", removePoints);
+        map.put("poButton4", JailButton);
         jailButton = new VicFormatter(JailButton, buffDistance);
 
         imageGetter = new Images("scales", theme, "UIimage");
         RoundButton scalesButton = new RoundButton(imageGetter.getImage(), theme);
-        map.put("poButton5", removePoints);
+        map.put("poButton5", scalesButton);
         fiftyFifButton = new VicFormatter(scalesButton, buffDistance);
 
         imageGetter = new Images("phone", theme, "UIimage");
@@ -80,7 +98,7 @@ public class PlayerOptions {
         map.put("poButton8", PassButton);
         passButton = new VicFormatter(PassButton, buffDistance);
 
-        TextCanvas textPNL = new TextCanvas(theme, 19, true);
+        textPNL = new TextCanvas(theme, 19, true);
         VicFormatter textFormat = new VicFormatter(textPNL, buffDistance);
         textPNL.setBackground(null);
         textPNL.setOpaque(false);
@@ -96,7 +114,7 @@ public class PlayerOptions {
 
         imageGetter = new Images("uparrow", theme, "UIimage");
         RoundButton SendButton = new RoundButton(imageGetter.getImage(), theme);
-        map.put("poButton9", PassButton);
+        map.put("poButton9", SendButton);
         sendButton = new VicFormatter(SendButton, buffDistance);
 
         playerOptions.add(sendButton.getPanel());
@@ -114,6 +132,160 @@ public class PlayerOptions {
         topPanel = new VicFormatter(playerOptions, buffDistance);
         topPanel.getPanel().setMinimumSize(new Dimension(300,300));
         map.put("poTopPanel", topPanel.getPanel());
+
+
+        sendButton.getComponent().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                //Loops through the 5 buttons and checks if each one is held. Skips the 50/50
+                if (!fiveMultButton.isHeld() && !JailButton.isHeld() && !phoneButton.isHeld() && !AbsentButton.isHeld() && !PassButton.isHeld()) {
+                    System.out.println("Nothing Held");
+                    try {
+                        int points = Integer.parseInt(textPNL.getText());  // Convert text to integer
+                        instructionsArray.add(new AddPointsInstructions(points));
+                    } catch (NumberFormatException f) {
+                        System.out.println("Invalid input. Please enter a valid number.");
+                        textPNL.setText("");
+                    }
+                }
+                else {
+                    for (int i = 3; i < NUM_ATTRIBUTES + 3; i++) {
+                        if (i != 5) {
+                            switch(i) {
+                                case 3:
+                                    if (fiveMultButton.isHeld()) {
+                                        System.out.println("FiveMultButton is held"); //These are temp while we wait to put in functionality
+                                    }
+                                    break;
+                                case 4:
+                                    if (JailButton.isHeld()) {
+                                        System.out.println("Jail Button is held");
+                                        try {
+                                            int points = Integer.parseInt(textPNL.getText());  // Convert text to integer
+                                            instructionsArray.add(new AddJailInstructions(points));
+                                        } catch (NumberFormatException f) {
+                                            System.out.println("Invalid input. Please enter a valid number.");textPNL.setText("");
+                                        }
+                                    }
+                                    break;
+                                case 6:
+                                    if (phoneButton.isHeld()) {
+                                        System.out.println("Phone Button is held");
+                                        try {
+                                            int points = Integer.parseInt(textPNL.getText());  // Convert text to integer
+                                            instructionsArray.add(new AddPhoneInstructions(points));
+                                        } catch (NumberFormatException f) {
+                                            System.out.println("Invalid input. Please enter a valid number.");textPNL.setText("");
+                                        }
+                                    }
+                                    break;
+                                case 7:
+                                    if (AbsentButton.isHeld()) {
+                                        System.out.println("Absent Button is held");
+                                        try {
+                                            int points = Integer.parseInt(textPNL.getText());  // Convert text to integer
+                                            instructionsArray.add(new AddAbsentInstructions(points));
+                                        } catch (NumberFormatException f) {
+                                            System.out.println("Invalid input. Please enter a valid number.");textPNL.setText("");
+                                        }
+                                    }
+                                    break;
+                                case 8:
+                                    if (PassButton.isHeld()) {
+                                        System.out.println("Pass Button is held");
+                                        try {
+                                            int points = Integer.parseInt(textPNL.getText());  // Convert text to integer
+                                            instructionsArray.add(new AddPassInstructions(points));
+                                        } catch (NumberFormatException f) {
+                                            System.out.println("Invalid input. Please enter a valid number.");textPNL.setText("");
+                                        }
+                                    }
+                                    break;
+                            }
+                        }
+                    }
+                }
+
+                for (Instructions instructions: instructionsArray){
+                    manager.sendToVics(instructions);
+                }
+
+                instructionsArray.clear();
+
+                textPNL.setText("");
+
+            }
+        });
+
+        plusButton.getComponent().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (fiveMultButton.isHeld())
+                    pointText += 5;
+                else
+                    pointText++;
+                textPNL.setText(String.valueOf(pointText));
+            }
+        });
+
+        minusButton.getComponent().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (fiveMultButton.isHeld())
+                    pointText -= 5;
+                else
+                    pointText--;
+                textPNL.setText(String.valueOf(pointText));
+            }
+        });
+
+        fiveMultiplyButton.getComponent().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Your action handling code here
+                //fiveMultButton.update(); // Assuming update() is a method that handles the toggle state
+            }
+        });
+
+        jailButton.getComponent().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Your action handling code here
+                //JailButton.update(); // Assuming update() is a method that handles the toggle state
+            }
+        });
+
+        fiftyFifButton.getComponent().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Your action handling code here
+
+            }
+        });
+
+        phoneFriendButton.getComponent().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Your action handling code here
+                //phoneButton.update(); // Assuming update() is a method that handles the toggle state
+            }
+        });
+
+        absentButton.getComponent().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Your action handling code here
+                //AbsentButton.update(); // Assuming update() is a method that handles the toggle state
+            }
+        });
+
+        passButton.getComponent().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Your action handling code here
+                //PassButton.update(); // Assuming update() is a method that handles the toggle state
+            }
+        });
 
     }
 
@@ -140,6 +312,71 @@ public class PlayerOptions {
         }
 
         playerOptions.repaint(); // Repaint the control panel to reflect the theme changes
+    }
+
+    public static class AddPointsInstructions implements Instructions<Victim>{
+        private int points;
+
+        public AddPointsInstructions(int points){
+            this.points = points;
+        }
+
+        @Override
+        public void update(Victim victim) {
+            victim.setPoints(points);
+        }
+    }
+
+    public static class AddJailInstructions implements Instructions<Victim>{
+        private int points;
+
+        public AddJailInstructions(int points){
+            this.points = points;
+        }
+
+        @Override
+        public void update(Victim victim) {
+            victim.setJail(points);
+        }
+    }
+
+    public static class AddPhoneInstructions implements Instructions<Victim>{
+        private int points;
+
+        public AddPhoneInstructions(int points){
+            this.points = points;
+        }
+
+        @Override
+        public void update(Victim victim) {
+            victim.setPhone(points);
+        }
+    }
+
+    public static class AddAbsentInstructions implements Instructions<Victim>{
+        private int points;
+
+        public AddAbsentInstructions(int points){
+            this.points = points;
+        }
+
+        @Override
+        public void update(Victim victim) {
+            victim.setAbsences(points);
+        }
+    }
+
+    public static class AddPassInstructions implements Instructions<Victim>{
+        private int points;
+
+        public AddPassInstructions(int points){
+            this.points = points;
+        }
+
+        @Override
+        public void update(Victim victim) {
+            victim.setPoints(points);
+        }
     }
 
 }

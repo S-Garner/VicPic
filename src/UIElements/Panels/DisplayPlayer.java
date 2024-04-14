@@ -16,6 +16,7 @@ public class DisplayPlayer extends HeldButton {
     public DisplayPlayer(Images image, CurrentUITheme currentUITheme) {
         super(image.getImage(), currentUITheme);
         this.playerName = image.getName();
+        this.playerImage = image; // Store the Images object to retrieve the image later
         setImage(image.getImage());
     }
 
@@ -49,11 +50,11 @@ public class DisplayPlayer extends HeldButton {
         g2.dispose();
     }
 
-    public BufferedImage getImage(){
-        return this.getImage();
+    public BufferedImage getImage() {
+        return playerImage != null ? playerImage.getImage() : null;
     }
 
-    public HeldButton getDispPanel(){
+    public HeldButton getDispPanel() {
         return this;
     }
 }
