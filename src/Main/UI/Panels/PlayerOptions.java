@@ -41,6 +41,7 @@ public class PlayerOptions {
     private HeldButton AbsentButton;
     private HeldButton PassButton;
     private RoundButton SendButton;
+    private sendButtonInstruct sendButtonInstruct;
 
     private TextCanvas textPNL;
 
@@ -145,90 +146,13 @@ public class PlayerOptions {
         topPanel.getPanel().setMinimumSize(new Dimension(300,300));
         map.put("poTopPanel", topPanel.getPanel());
 
+        sendButtonInstruct = new sendButtonInstruct();
 
         sendButton.getComponent().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                //Loops through the 5 buttons and checks if each one is held. Skips the 50/50
-                if (!fiveMultButton.isHeld() && !JailButton.isHeld() && !phoneButton.isHeld() && !AbsentButton.isHeld() && !PassButton.isHeld()) {
-                    System.out.println("Nothing Held");
-                    try {
-                        int points = Integer.parseInt(textPNL.getText());  // Convert text to integer
-                        instructionsArray.add(new AddPointsInstructions(points));
-                    } catch (NumberFormatException f) {
-                        System.out.println("Invalid input. Please enter a valid number.");
-                        textPNL.setText("");
-                    }
-                }
-                else {
-                    for (int i = 3; i < NUM_ATTRIBUTES + 3; i++) {
-                        if (i != 9) {
-                            switch(i) {
-                                case 3:
-                                    if (fiveMultButton.isHeld()) {
-                                        System.out.println("FiveMultButton is held"); //These are temp while we wait to put in functionality
-                                    }
-                                    break;
-                                case 4:
-                                    if (JailButton.isHeld()) {
-                                        System.out.println("Jail Button is held");
-                                        try {
-                                            int points = Integer.parseInt(textPNL.getText());  // Convert text to integer
-                                            instructionsArray.add(new AddJailInstructions(points));
-                                        } catch (NumberFormatException f) {
-                                            System.out.println("Invalid input. Please enter a valid number.");textPNL.setText("");
-                                        }
-                                    }
-                                    break;
-                                case 5:
-                                    if (scalesButton.isHeld()){
 
-                                    }
-                                case 6:
-                                    if (phoneButton.isHeld()) {
-                                        System.out.println("Phone Button is held");
-                                        try {
-                                            int points = Integer.parseInt(textPNL.getText());  // Convert text to integer
-                                            instructionsArray.add(new AddPhoneInstructions(points));
-                                        } catch (NumberFormatException f) {
-                                            System.out.println("Invalid input. Please enter a valid number.");textPNL.setText("");
-                                        }
-                                    }
-                                    break;
-                                case 7:
-                                    if (AbsentButton.isHeld()) {
-                                        System.out.println("Absent Button is held");
-                                        try {
-                                            int points = Integer.parseInt(textPNL.getText());  // Convert text to integer
-                                            instructionsArray.add(new AddAbsentInstructions(points));
-                                        } catch (NumberFormatException f) {
-                                            System.out.println("Invalid input. Please enter a valid number.");textPNL.setText("");
-                                        }
-                                    }
-                                    break;
-                                case 8:
-                                    if (PassButton.isHeld()) {
-                                        System.out.println("Pass Button is held");
-                                        try {
-                                            int points = Integer.parseInt(textPNL.getText());  // Convert text to integer
-                                            instructionsArray.add(new AddPassInstructions(points));
-                                        } catch (NumberFormatException f) {
-                                            System.out.println("Invalid input. Please enter a valid number.");textPNL.setText("");
-                                        }
-                                    }
-                                    break;
-                            }
-                        }
-                    }
-                }
-
-                for (Instructions instructions: instructionsArray){
-                    manager.sendToVics(instructions);
-                }
-
-                instructionsArray.clear();
-
-                textPNL.setText("");
+                sendButtonInstruct.update(manager);
 
             }
         });
@@ -421,7 +345,13 @@ public class PlayerOptions {
 
     public class sendButtonInstruct implements Instructions<VictimPanelManager>{
 
-        private VictimPanelManager manager;
+        private VictimPanelManager inManager = manager;
+
+        private boolean isCorrect;
+
+        public sendButtonInstruct(){
+
+        }
 
         @Override
         public void update(VictimPanelManager component) {
@@ -498,11 +428,12 @@ public class PlayerOptions {
             }
 
             for (Instructions instructions: instructionsArray){
-                manager.sendToVics(instructions);
+                inManager.sendToVics(instructions);
             }
 
             instructionsArray.clear();
 
+            pointText = 0;
             textPNL.setText("");
         }
     }
