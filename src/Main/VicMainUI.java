@@ -83,21 +83,14 @@ import java.util.HashMap;
 
             // Panel for current user stats
 
-
-            //CurrentUserStats currentUserStats = new CurrentUserStats(mainHolder.getTheme());
-
-
-            UserStats test = new UserStats(mainHolder.getTheme());
+            UserStats userStats = new UserStats(mainHolder.getTheme());
             JPanel userStatsPanel = new JPanel();
             userStatsPanel.setBackground(null);
-            userStatsPanel.add(test);  // Add main panel of user stats
-
+            userStatsPanel.add(userStats);  // Add main panel of user stats
+            map.putAll(userStats.getMap());
 
             //userStatsPanel.setBackground(mainHolder.getTheme().getCurrentBackgroundColor().main());
             userStatsPanel.setOpaque(false);
-
-            // Get map from stats
-            //map.putAll(currentUserStats.getMap());
 
             // Assemble player options and stats into the holder
             playerOptionsHolder.add(playerDisplayTopPanel);

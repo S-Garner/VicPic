@@ -55,9 +55,5 @@ public class Driver {
             }
         });
 
-        //Deprecated Panels
-        //VictimPicker v = new VictimPicker();
-        //VictimGUI GUI = new VictimGUI(v);
-
     }
 }

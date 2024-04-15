@@ -25,8 +25,6 @@ import java.util.stream.Collectors;
 public class PlayerDisplayPanel {
     //private RoundedPanel mainPanel;
 
-    private CurrentUserStats stats;
-
     private JPanel topPanel;
     private VicFormatter topFormat;
 

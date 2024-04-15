@@ -1,6 +1,7 @@
 package src.Main.UI.Panels;
 
 import src.Main.UI.Format.VicFormatter;
+import src.Students.Victim;
 import src.UIElements.Colors.CurrentUITheme;
 import src.UIElements.Panels.RoundedPanel;
 import src.UIElements.TextCanvas;
@@ -8,22 +9,34 @@ import src.UIElements.TextCanvas;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class UserStats extends RoundedPanel {
-    private String firstName = "";
-    private String lastName = "";
-    private String nickName = "";
-    private String points = "";
-    private String absents = "";
-    private String answered = "";
-    private String timesPicked = "";
-    private String passed = "";
-    private String influence = "";
+    private String firstName = "All";
+    private String lastName = "Work";
+    private String nickName = "No Play";
+    private String points = "All Work";
+    private String absents = "No Play";
+    private String answered = "All Work";
+    private String timesPicked = "No Play";
+    private String passed = "All Work";
+    private String influence = "No Play";
+
+    private Victim victim;
+
+    private ArrayList<TextCanvas> panelHolder;
+
+    private HashMap<String, JComponent> map;
 
     private String[] stringArray = { firstName + " " + lastName, nickName, points, absents, answered, timesPicked, passed, influence};
 
     public UserStats(CurrentUITheme theme) {
         super(theme);
+
+        map = new HashMap<>();
+        panelHolder = new ArrayList<>();
+
         JPanel mainHolder = new JPanel();
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -53,6 +66,8 @@ public class UserStats extends RoundedPanel {
             rightTextField.setColumns(10);
             rightTextField.setBorder(new LineBorder(themeInvert.getCurrentBackgroundColor().main()));
             add(rightTextField, gbc);
+            map.put("stat" + (i + 1), rightTextField);
+            panelHolder.add(rightTextField);
         }
 
         // Create labels and text fields for the second column
@@ -76,19 +91,51 @@ public class UserStats extends RoundedPanel {
             rightTextField.setColumns(10);
             rightTextField.setBorder(new LineBorder(themeInvert.getCurrentBackgroundColor().main()));
             add(rightTextField, gbc);
+            map.put("stat" + (i + 5), rightTextField);
+            panelHolder.add(rightTextField);
         }
+        writeStats();
+
+        map.put("statMain", this);
     }
 
-    /*
     public void writeStats(){
-        fullName.setText(firstName + " " + lastName);
-        pointsMain.setText(points);
-        absentMain.setText(absents);
-        answeredMain.setText(answered);
-        timesPickedMain.setText(timesPicked);
-        passedMain.setText(passed);
-        influenceMain.setText(influence);
+        panelHolder.get(0).setText(firstName + " " + lastName);
+        panelHolder.get(1).setText(points);
+        panelHolder.get(2).setText(answered);
+        panelHolder.get(3).setText(passed);
+        panelHolder.get(4).setText(nickName);
+        panelHolder.get(5).setText(absents);
+        panelHolder.get(6).setText(timesPicked);
+        panelHolder.get(7).setText(influence);
     }
-     */
+
+    public void setVictim(Victim inVictim){
+        victim = new Victim(inVictim);
+    }
+
+    public Victim getVictim(){
+        return victim;
+    }
+
+    public void updateStatText(Victim inVictim){
+        setVictim(inVictim);
+
+        firstName = victim.getName().getFirstName();
+        lastName = victim.getName().getLastName();
+        points = String.valueOf(victim.getPoints());
+        absents = String.valueOf(victim.getAbsences());
+        answered = String.valueOf(victim.getAnswered());
+        timesPicked = String.valueOf(victim.getNumPicked());
+        passed = String.valueOf(victim.getPassed());
+        influence = String.valueOf(victim.getInfluenceScore());
+
+        writeStats();
+
+    }
+
+    public HashMap<String, JComponent> getMap(){
+        return map;
+    }
 
 }

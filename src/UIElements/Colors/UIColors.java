@@ -16,9 +16,11 @@ public class UIColors {
     final static ColorScheme TEAMGREEN = new ColorScheme(Color.decode("#00FF00"), Color.decode("#03C102"), Color.decode("#038602"));
     final static ColorScheme TEAMYELLOW = new ColorScheme(Color.decode("#FFFF00"), Color.decode("#E1E004"), Color.decode("#C1C002"));
     final static ColorScheme MANDARIN = new ColorScheme(Color.decode("#EB813B"), Color.decode("#D66F2B"), Color.decode("#B55718"));
+    final static ColorScheme GBBackScreen = new ColorScheme(Color.decode("#CADCA0"), Color.decode("#30622F"), Color.decode("#144713"));
+    final static ColorScheme GBFrontScreen = new ColorScheme(Color.decode("#0F380E"), Color.decode("#0C290B"), Color.decode("#071707"));
 
     final public static String[] colors = {"charcoal", "cream", "moss", "navy", "marigold", "crimson", "egg",
-            "teamblue", "teamred", "teamgreen","teamyellow"};
+            "teamblue", "teamred", "teamgreen","teamyellow", "mandarin", "gbbackscreen", "gbfrontscreen"};
 
     public static ColorScheme getColorScheme(String name) {
         switch (name.toLowerCase()) {
@@ -44,6 +46,12 @@ public class UIColors {
                 return TEAMGREEN;
             case "teamyellow":
                 return TEAMYELLOW;
+            case "mandarin":
+                return MANDARIN;
+            case "gbbackscreen":
+                return GBBackScreen;
+            case "gbfrontscreen":
+                return GBFrontScreen;
             default:
                 throw new IllegalArgumentException("Unknown color scheme");
         }
