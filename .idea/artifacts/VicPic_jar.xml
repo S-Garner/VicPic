@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="VicPic:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/VicPic_jar</output-path>
+    <root id="archive" name="VicPic.jar">
+      <element id="module-output" name="VicPic" />
+    </root>
+  </artifact>
+</component>
