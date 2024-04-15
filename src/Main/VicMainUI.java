@@ -109,6 +109,8 @@ import java.util.HashMap;
             //qaPanelHolder.getPanel().setBackground(mainHolder.getTheme().getCurrentBackgroundColor().main());
             qaPanel.setQuestions(mainHolder.getQuestions());
 
+            playerOptions.setQAPanel(qaPanel);
+
             // Panel to hold high scores and questions
             RoundedPanel highScoreAndQuestionPanel = new RoundedPanel(mainHolder.getTheme());
             highScoreAndQuestionPanel.setBackground(mainHolder.getTheme().getCurrentBackgroundColor().main());

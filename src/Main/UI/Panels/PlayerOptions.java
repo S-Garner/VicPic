@@ -32,6 +32,16 @@ public class PlayerOptions {
     private VicFormatter topPanel;
     private VicFormatter sendButton;
 
+    private RoundButton addPoints;
+    private RoundButton removePoints;
+    private HeldButton fiveMultButton;
+    private HeldButton JailButton;
+    private HeldButton scalesButton;
+    private HeldButton phoneButton;
+    private HeldButton AbsentButton;
+    private HeldButton PassButton;
+    private RoundButton SendButton;
+
     private TextCanvas textPNL;
 
     private VictimPanelManager manager;
@@ -39,6 +49,8 @@ public class PlayerOptions {
     private ArrayList<Instructions> instructionsArray;
 
     private HashMap<String, JComponent> map;
+
+    private QandAPanel QAPanel;
 
     int pointText = 0;
 
@@ -59,42 +71,42 @@ public class PlayerOptions {
         Image image = null;
 
         imageGetter = new Images("plus", theme, "UIimage");
-        RoundButton addPoints = new RoundButton(imageGetter.getImage(), theme);
+        addPoints = new RoundButton(imageGetter.getImage(), theme);
         map.put("poButton1", addPoints);
         plusButton = new VicFormatter(addPoints, buffDistance);
 
         imageGetter = new Images("dash", theme, "UIimage");
-        RoundButton removePoints = new RoundButton(imageGetter.getImage(), theme);
+        removePoints = new RoundButton(imageGetter.getImage(), theme);
         map.put("poButton2", removePoints);
         minusButton = new VicFormatter(removePoints, buffDistance);
 
         imageGetter = new Images("5", theme, "UIimage");
-        HeldButton fiveMultButton = new HeldButton(imageGetter.getImage(), theme);
+        fiveMultButton = new HeldButton(imageGetter.getImage(), theme);
         map.put("poButton3", fiveMultButton);
         fiveMultiplyButton = new VicFormatter(fiveMultButton, buffDistance);
 
         imageGetter = new Images("robber", theme, "UIimage");
-        HeldButton JailButton = new HeldButton(imageGetter.getImage(), theme);
+        JailButton = new HeldButton(imageGetter.getImage(), theme);
         map.put("poButton4", JailButton);
         jailButton = new VicFormatter(JailButton, buffDistance);
 
         imageGetter = new Images("scales", theme, "UIimage");
-        RoundButton scalesButton = new RoundButton(imageGetter.getImage(), theme);
+        scalesButton = new HeldButton(imageGetter.getImage(), theme);
         map.put("poButton5", scalesButton);
         fiftyFifButton = new VicFormatter(scalesButton, buffDistance);
 
         imageGetter = new Images("phone", theme, "UIimage");
-        HeldButton phoneButton = new HeldButton(imageGetter.getImage(), theme);
+        phoneButton = new HeldButton(imageGetter.getImage(), theme);
         map.put("poButton6", phoneButton);
         phoneFriendButton = new VicFormatter(phoneButton, buffDistance);
 
         imageGetter = new Images("noSign", theme, "UIimage");
-        HeldButton AbsentButton = new HeldButton(imageGetter.getImage(), theme);
+        AbsentButton = new HeldButton(imageGetter.getImage(), theme);
         map.put("poButton7", AbsentButton);
         absentButton = new VicFormatter(AbsentButton, buffDistance);
 
         imageGetter = new Images("pass", theme, "UIimage");
-        HeldButton PassButton = new HeldButton(imageGetter.getImage(), theme);
+        PassButton = new HeldButton(imageGetter.getImage(), theme);
         map.put("poButton8", PassButton);
         passButton = new VicFormatter(PassButton, buffDistance);
 
@@ -113,7 +125,7 @@ public class PlayerOptions {
         VicFormatter roundFormat = new VicFormatter(round, buffDistance);
 
         imageGetter = new Images("uparrow", theme, "UIimage");
-        RoundButton SendButton = new RoundButton(imageGetter.getImage(), theme);
+        SendButton = new RoundButton(imageGetter.getImage(), theme);
         map.put("poButton9", SendButton);
         sendButton = new VicFormatter(SendButton, buffDistance);
 
@@ -150,7 +162,7 @@ public class PlayerOptions {
                 }
                 else {
                     for (int i = 3; i < NUM_ATTRIBUTES + 3; i++) {
-                        if (i != 5) {
+                        if (i != 9) {
                             switch(i) {
                                 case 3:
                                     if (fiveMultButton.isHeld()) {
@@ -168,6 +180,10 @@ public class PlayerOptions {
                                         }
                                     }
                                     break;
+                                case 5:
+                                    if (scalesButton.isHeld()){
+
+                                    }
                                 case 6:
                                     if (phoneButton.isHeld()) {
                                         System.out.println("Phone Button is held");
@@ -291,6 +307,10 @@ public class PlayerOptions {
 
     public JPanel getFormat() { return topPanel.getPanel(); }
 
+    public void setQAPanel(QandAPanel inQA){
+        this.QAPanel = inQA;
+    }
+
     public HashMap<String, JComponent> getMap() { return map; }
 
     public void updateColors(CurrentUITheme currentTheme) {
@@ -376,6 +396,114 @@ public class PlayerOptions {
         @Override
         public void update(Victim victim) {
             victim.setPoints(points);
+        }
+    }
+
+    public static class FiftyFifty implements Instructions<Victim>{
+        int points;
+        boolean isCorrect = true;
+
+        public FiftyFifty(boolean check){
+            isCorrect = check;
+        }
+
+        @Override
+        public void update(Victim victim) {
+            if (!isCorrect){
+                points = (victim.getPoints() / 2) * -1;
+            }
+            else{
+                points = victim.getPoints() / 2;
+            }
+            victim.setPoints(points);
+        }
+    }
+
+    public class sendButtonInstruct implements Instructions<VictimPanelManager>{
+
+        private VictimPanelManager manager;
+
+        @Override
+        public void update(VictimPanelManager component) {
+            if (!fiveMultButton.isHeld() && !JailButton.isHeld() && !phoneButton.isHeld() && !AbsentButton.isHeld() && !PassButton.isHeld()) {
+                System.out.println("Nothing Held");
+                try {
+                    int points = Integer.parseInt(textPNL.getText());  // Convert text to integer
+                    instructionsArray.add(new AddPointsInstructions(points));
+                } catch (NumberFormatException f) {
+                    System.out.println("Invalid input. Please enter a valid number.");
+                    textPNL.setText("");
+                }
+            }
+            else {
+                for (int i = 3; i < NUM_ATTRIBUTES + 3; i++) {
+                    if (i != 9) {
+                        switch(i) {
+                            case 3:
+                                if (fiveMultButton.isHeld()) {
+                                    System.out.println("FiveMultButton is held"); //These are temp while we wait to put in functionality
+                                }
+                                break;
+                            case 4:
+                                if (JailButton.isHeld()) {
+                                    System.out.println("Jail Button is held");
+                                    try {
+                                        int points = Integer.parseInt(textPNL.getText());  // Convert text to integer
+                                        instructionsArray.add(new AddJailInstructions(points));
+                                    } catch (NumberFormatException f) {
+                                        System.out.println("Invalid input. Please enter a valid number.");textPNL.setText("");
+                                    }
+                                }
+                                break;
+                            case 5:
+                                if (scalesButton.isHeld()){
+
+                                }
+                            case 6:
+                                if (phoneButton.isHeld()) {
+                                    System.out.println("Phone Button is held");
+                                    try {
+                                        int points = Integer.parseInt(textPNL.getText());  // Convert text to integer
+                                        instructionsArray.add(new AddPhoneInstructions(points));
+                                    } catch (NumberFormatException f) {
+                                        System.out.println("Invalid input. Please enter a valid number.");textPNL.setText("");
+                                    }
+                                }
+                                break;
+                            case 7:
+                                if (AbsentButton.isHeld()) {
+                                    System.out.println("Absent Button is held");
+                                    try {
+                                        int points = Integer.parseInt(textPNL.getText());  // Convert text to integer
+                                        instructionsArray.add(new AddAbsentInstructions(points));
+                                    } catch (NumberFormatException f) {
+                                        System.out.println("Invalid input. Please enter a valid number.");textPNL.setText("");
+                                    }
+                                }
+                                break;
+                            case 8:
+                                if (PassButton.isHeld()) {
+                                    System.out.println("Pass Button is held");
+                                    try {
+                                        int points = Integer.parseInt(textPNL.getText());  // Convert text to integer
+                                        instructionsArray.add(new AddPassInstructions(points));
+                                    } catch (NumberFormatException f) {
+                                        System.out.println("Invalid input. Please enter a valid number.");textPNL.setText("");
+                                    }
+                                }
+                                break;
+                        }
+                    }
+                }
+            }
+
+            for (Instructions instructions: instructionsArray){
+                manager.sendToVics(instructions);
+            }
+
+            instructionsArray.clear();
+
+            textPNL.setText("");
         }
     }
 
