@@ -1,5 +1,6 @@
 package src.Main.UI.Panels;
 
+import src.Main.UI.Format.VicFormatter;
 import src.UIElements.Colors.CurrentUITheme;
 import src.UIElements.Panels.RoundedPanel;
 import src.UIElements.TextCanvas;
@@ -9,8 +10,21 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class UserStats extends RoundedPanel {
+    private String firstName = "";
+    private String lastName = "";
+    private String nickName = "";
+    private String points = "";
+    private String absents = "";
+    private String answered = "";
+    private String timesPicked = "";
+    private String passed = "";
+    private String influence = "";
+
+    private String[] stringArray = { firstName + " " + lastName, nickName, points, absents, answered, timesPicked, passed, influence};
+
     public UserStats(CurrentUITheme theme) {
         super(theme);
+        JPanel mainHolder = new JPanel();
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -58,7 +72,23 @@ public class UserStats extends RoundedPanel {
             gbc.gridy = i;
             gbc.weightx = 1.5;
             gbc.insets = new Insets(2, 2, 2, 2);
-            add(new JTextField(10), gbc);
+            TextCanvas rightTextField = new TextCanvas(themeInvert, 18, false);
+            rightTextField.setColumns(10);
+            rightTextField.setBorder(new LineBorder(themeInvert.getCurrentBackgroundColor().main()));
+            add(rightTextField, gbc);
         }
     }
+
+    /*
+    public void writeStats(){
+        fullName.setText(firstName + " " + lastName);
+        pointsMain.setText(points);
+        absentMain.setText(absents);
+        answeredMain.setText(answered);
+        timesPickedMain.setText(timesPicked);
+        passedMain.setText(passed);
+        influenceMain.setText(influence);
+    }
+     */
+
 }
