@@ -1,8 +1,17 @@
 package src.ButtonCommands;
 
+<<<<<<< Updated upstream
 import src.Interfaces.Instructions;
 import src.Students.StudentFunctions.Names;
 import src.Students.Victim;
+=======
+import Interfaces.Instructions;
+import Main.UI.Format.VicFormatter;
+import Students.StudentFunctions.Names;
+import Students.Victim;
+import UIElements.Colors.CurrentUITheme;
+import UIElements.TextCanvas;
+>>>>>>> Stashed changes
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +30,7 @@ public class AddPlayerMenu {
     private JTextField nicknameTextField;
 
 
-    public AddPlayerMenu(ArrayList<Victim> inVicz) {
+    public AddPlayerMenu(ArrayList<Victim> inVicz, CurrentUITheme theme) {
         vics = inVicz;
         frame = new JFrame("Add Victim");
         popupMenu = new JPopupMenu();
@@ -32,11 +41,13 @@ public class AddPlayerMenu {
         constraints.gridx = 0;
         constraints.gridy = GridBagConstraints.RELATIVE;
         constraints.anchor = GridBagConstraints.WEST;
-        constraints.insets = new Insets(4, 4, 4, 4);
+        constraints.insets = new Insets(8, 8, 8, 8);
 
         // First Name label and text field
         JLabel firstNameLabel = new JLabel("First Name:");
-        firstNameTextField = new JTextField(15);
+        firstNameTextField = new TextCanvas(theme, 20, true);
+        firstNameLabel.setSize(new Dimension(100, 50));
+        VicFormatter firstFormat = new VicFormatter(firstNameTextField, 5);
         panel.add(firstNameLabel, constraints);
         constraints.gridx = 1;
         panel.add(firstNameTextField, constraints);

@@ -32,7 +32,7 @@ public class Driver {
         SimpleInstructions addingPlayer = new SimpleInstructions() {
             @Override
             public void execute() {
-                AddPlayerMenu addPlayerMenu = new AddPlayerMenu(frontend.getHolder().getVictims());
+                AddPlayerMenu addPlayerMenu = new AddPlayerMenu(frontend.getHolder().getVictims(), frontend.getHolder().getTheme());
             }
         };
 
